@@ -90,11 +90,11 @@ public class Stegosaur extends Dinosaur {
 			}
 			setUnconsciousTurns(0);
 			if(hitPoints>50){
-				wander=new Following(false,true).getAction(this,map);
+				wander=new Following(false,true,false).getAction(this,map);
 			}
 			else if(hitPoints<90){
 				System.out.println(this.name+"at ("+thisLocation.x()+","+thisLocation.y()+") is getting hungry!");
-				wander=new Following(true,false).getAction(this,map);;
+				wander=new Following(true,false,false).getAction(this,map);;
 			}
 			else{
 				wander=getBehaviour().getAction(this,map);
