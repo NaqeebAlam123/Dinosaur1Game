@@ -37,6 +37,8 @@ public class FeedDinosaur extends Action {
       for(Item item :actor.getInventory()){
           if (item instanceof Fruit){
               target.heal(20);
+              Player player=(Player) actor;
+              player.incrementPoints(10);
               actor.removeItemFromInventory(item);
               break;
           }
@@ -55,8 +57,7 @@ public class FeedDinosaur extends Action {
           }
 
       }
-      Player player=(Player) actor;
-      player.incrementPoints(10);
+
 
       return menuDescription(actor);
     }
