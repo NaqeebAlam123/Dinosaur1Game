@@ -1,4 +1,4 @@
-package edu.monash.fit2099.demo.conwayslife;
+package src.edu.monash.fit2099.demo.conwayslife;
 
 import java.util.Arrays;
 import java.util.List;
