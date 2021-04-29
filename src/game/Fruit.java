@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @author Muhammad Naqeeb Alam
  * @version 1.0.0
- * @see Item,VendingMachine
+ * @see Item,VendingMachine,Tree,Bush
  */
 public class Fruit extends Item {
     /**
