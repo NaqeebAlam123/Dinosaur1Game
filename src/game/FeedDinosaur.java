@@ -1,0 +1,66 @@
+package game;
+
+import edu.monash.fit2099.engine.Action;
+import edu.monash.fit2099.engine.Actor;
+import edu.monash.fit2099.engine.GameMap;
+import edu.monash.fit2099.engine.Item;
+
+/**
+ * @author Muhammad Naqeeb Alam
+ * @see Dinosaur
+ * @see Fruit
+ * @see vegetarianMealKit
+ * @see carnivoreMealKit
+ * @version 1.0.0
+ */
+public class FeedDinosaur extends Action {
+    /**
+     * Dinosaur
+     */
+    protected Actor target;
+
+    /**
+     * Intiallises the target which is dinosaur
+     * @param target
+     */
+    public FeedDinosaur(Actor target) {
+        this.target = target;
+    }
+
+    /**
+     * This method is executed when player chose to feed the dinosaur
+     * @param actor The actor performing the action.
+     * @param map The map the actor is on.
+     * @return
+     */
+    public String execute(Actor actor , GameMap map){
+      for(Item item :actor.getInventory()){
+          if (item instanceof Fruit){
+              target.heal(20);
+              actor.removeItemFromInventory(item);
+              break;
+          }
+          else if(item instanceof vegetarianMealKit && (target instanceof Stegosaur||target instanceof Brachiosaur)){
+              Dinosaur dinosaur=(Dinosaur) actor;
+              dinosaur.heal(dinosaur.getMaxHitPoints()-dinosaur.getHitPoints());
+              actor.removeItemFromInventory(item);
+              break;
+
+          }
+          else if(item instanceof carnivoreMealKit && (target instanceof Allosaur)){
+              Dinosaur dinosaur=(Dinosaur) actor;
+              dinosaur.heal(dinosaur.getMaxHitPoints()-dinosaur.getHitPoints());
+              actor.removeItemFromInventory(item);
+              break;
+          }
+
+      }
+      Player player=(Player) actor;
+      player.incrementPoints(10);
+
+      return menuDescription(actor);
+    }
+    public String menuDescription(Actor actor) {
+        return actor + " feeds " + target;
+    }
+}
