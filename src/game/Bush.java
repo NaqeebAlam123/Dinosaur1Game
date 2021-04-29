@@ -11,18 +11,8 @@ import java.util.Random;
  * @see Ground,Fruit,Location
  * @version 1.0.0
  */
-public class Bush extends Ground {
-    /**
-     * Return list of fruit objects
-     */
-    private ArrayList<Fruit> fruits=new ArrayList<>();
-    /**
-     * Remove specific fruit object from list of fruits
-     * @param fruit fruit object
-     */
-    public void remove(Fruit fruit){
-        fruits.remove(fruit);
-    }
+public class Bush extends FoodSource {
+
     public Bush() {
         super('b');
     }
@@ -38,11 +28,13 @@ public class Bush extends Ground {
             Fruit thisFruit=new Fruit("apple",'a',true);
             thisFruit.dropFruit();
             thisFruit.addCapability(FruitStatus.DROPPED);
-            fruits.add(thisFruit);
+            add(thisFruit);
 
         }
-        for(int i=0;i<=fruits.size()-1;i++){
-            Fruit thisFruit=fruits.remove(i);
+        for(int i=0;i<=getFruits().size()-1;i++){
+            Fruit thisFruit=getFruits().get(i);
+            remove(thisFruit);
+
             if(thisFruit.hasCapability(FruitStatus.DROPPED)){
                 if (thisFruit.getFruitAge() >14) {
                     thisFruit.removeCapability(FruitStatus.DROPPED);
@@ -54,7 +46,7 @@ public class Bush extends Ground {
 
                     thisFruit.ageFruit();
 
-                    fruits.add(i,thisFruit);
+                    add(thisFruit);
                 }
             }
 

@@ -13,32 +13,12 @@ import java.util.Random;
  * @see Fruit,Ground,Util,Location
  * @version 1.0.0
  */
-public class Tree extends Ground {
+public class Tree extends FoodSource {
 	/**
 	 * age of Tree
 	 */
 	private int age = 0;
 
-	/**
-	 * Return list of fruit objects
-	 * @return
-	 */
-	public ArrayList<Fruit> getFruits() {
-		return fruits;
-	}
-
-	/**
-	 * Remove specific fruit object from list of fruits
-	 * @param fruit fruit object
-	 */
-	public void remove(Fruit fruit){
-		fruits.remove(fruit);
-	}
-
-	/**
-	 * Holds list of fruit objects
-	 */
-	private ArrayList<Fruit> fruits=new ArrayList<>();
 
 	/**
 	 * Returns the number of hanging Fruits
@@ -74,14 +54,15 @@ public class Tree extends Ground {
 		if (age == 20)
 			displayChar = 'T';
 	    if (r.nextInt(100)+1>50){
-	    	fruits.add(new Fruit("apple",'a',true));
+	    	add(new Fruit("apple",'a',true));
 	    	GameMap map=location.map();
 	    	Player player=Util.findPlayer(map);
 			player.incrementPoints(1);
 	    	hangingFruits=hangingFruits+1;
 		}
-	    for(int i=0;i<=fruits.size()-1;i++){
-	    	Fruit thisFruit=fruits.remove(i);
+	    for(int i=0;i<=getFruits().size()-1;i++){
+	    	Fruit thisFruit=getFruits().get(i);
+	    	remove(thisFruit);
 	    	if (thisFruit.hasCapability(FruitStatus.DROPPED) ){
 				if (thisFruit.getFruitAge() >14) {
 					thisFruit.removeCapability(FruitStatus.DROPPED);
@@ -92,7 +73,7 @@ public class Tree extends Ground {
 				else{
 					thisFruit.ageFruit();
 
-					fruits.add(i,thisFruit);
+					add(thisFruit);
 				}
 			}
 	    	else if(!(thisFruit.hasCapability(FruitStatus.ROTTEN))){
@@ -105,7 +86,7 @@ public class Tree extends Ground {
 
 				}
 
-				fruits.add(i,thisFruit);
+				add(thisFruit);
 
 			}
 		}
