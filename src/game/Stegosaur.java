@@ -34,59 +34,60 @@ public class Stegosaur extends Dinosaur {
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
 		Location thisLocation=map.locationOf(this);
 		FoodSource foodSource=null;
-		if(thisLocation.getGround() instanceof Tree){
-			foodSource=(Tree)thisLocation.getGround();
-		}
-		else if(thisLocation.getGround() instanceof Bush){
-			foodSource=(Bush)thisLocation.getGround();
 
-		}
-		if(foodSource!=null){
-			for (Fruit fruits:foodSource.getFruits()) {
-				if (fruits.hasCapability(FruitStatus.DROPPED)) {
-					thisLocation.removeItem(fruits);
-					foodSource.remove(fruits);
-					this.heal(10);
-					break;
-				}
+		Action wander ;
+		if(isConscious()){
+			if(thisLocation.getGround() instanceof Tree){
+				foodSource=(Tree)thisLocation.getGround();
 			}
-			thisLocation.setGround(foodSource);
-		}
-		if(!hasCapability(AgeGroup.Baby)) {
-			if (getGender().contentEquals("female")) {
-				if (!(hasCapability(BreedingState.Pregnant))) {
-					for (Exit exit : thisLocation.getExits()) {
-						Location destination = exit.getDestination();
-						if (destination.containsAnActor()) {
-							Actor actor = destination.getActor();
-							if (actor instanceof Stegosaur && ((Stegosaur) actor).getGender().contentEquals("male")) {
-								setPregnantCount(0);
-								addCapability(BreedingState.Pregnant);
-								break;
+			else if(thisLocation.getGround() instanceof Bush){
+				foodSource=(Bush)thisLocation.getGround();
+
+			}
+			if(foodSource!=null){
+				for (Fruit fruits:foodSource.getFruits()) {
+					if (fruits.hasCapability(FruitStatus.DROPPED)) {
+						thisLocation.removeItem(fruits);
+						foodSource.remove(fruits);
+						this.heal(10);
+						break;
+					}
+				}
+				thisLocation.setGround(foodSource);
+			}
+			if(!hasCapability(AgeGroup.Baby)) {
+				if (getGender().contentEquals("female")) {
+					if (!(hasCapability(BreedingState.Pregnant))) {
+						for (Exit exit : thisLocation.getExits()) {
+							Location destination = exit.getDestination();
+							if (destination.containsAnActor()) {
+								Actor actor = destination.getActor();
+								if (actor instanceof Stegosaur && ((Stegosaur) actor).getGender().contentEquals("male")) {
+									setPregnantCount(0);
+									addCapability(BreedingState.Pregnant);
+									break;
+								}
+
 							}
+						}
+					} else {
+						incrementPregnantCount();
+						if (getPregnantCount() == 10) {
+							StegosaurEgg egg = new StegosaurEgg("egg", '0', false);
+							egg.addCapability(eggOf.Stegosaur);
+							thisLocation.addItem(egg);
+							removeCapability(BreedingState.Pregnant);
 
 						}
 					}
-				} else {
-					incrementPregnantCount();
-					if (getPregnantCount() == 10) {
-						StegosaurEgg egg = new StegosaurEgg("egg", '0', false);
-						egg.addCapability(eggOf.Stegosaur);
-						thisLocation.addItem(egg);
-						removeCapability(BreedingState.Pregnant);
-
-					}
 				}
 			}
-		}
-		else{
-			setBabyAge(getBabyAge()+1);
-			if (getBabyAge()==30){
-				removeCapability(AgeGroup.Baby);
+			else{
+				setBabyAge(getBabyAge()+1);
+				if (getBabyAge()==30){
+					removeCapability(AgeGroup.Baby);
+				}
 			}
-		}
-		Action wander ;
-		if(isConscious()){
 			setUnconsciousTurns(0);
 			if(hitPoints>50){
 				wander=new FollowDinasour().getAction(this,map);

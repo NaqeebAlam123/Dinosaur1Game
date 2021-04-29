@@ -28,57 +28,59 @@ public class Brachiosaur extends Dinosaur {
     public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
         Random r=new Random();
         Location thisLocation=map.locationOf(this);
-        if (thisLocation.getGround() instanceof Tree){
-            Tree tree=(Tree)thisLocation.getGround();
-            for (Fruit fruits:tree.getFruits()) {
-                if (!(fruits.hasCapability(FruitStatus.DROPPED)) && fruits.getPortable()) {
-                    thisLocation.removeItem(fruits);
-                    tree.remove(fruits);
-                    this.heal(5);
+        Action wander ;
+
+
+        if(isConscious()){
+            if (thisLocation.getGround() instanceof Tree){
+                Tree tree=(Tree)thisLocation.getGround();
+                for (Fruit fruits:tree.getFruits()) {
+                    if (!(fruits.hasCapability(FruitStatus.DROPPED)) && fruits.getPortable()) {
+                        thisLocation.removeItem(fruits);
+                        tree.remove(fruits);
+                        this.heal(5);
+                    }
                 }
             }
-        }
-        else if(thisLocation.getGround() instanceof Bush){
-            if(r.nextInt(100)+1>50){
-                thisLocation.setGround(new Dirt());
-            }
+            else if(thisLocation.getGround() instanceof Bush){
+                if(r.nextInt(100)+1>50){
+                    thisLocation.setGround(new Dirt());
+                }
 
-        }
-        if(!hasCapability(AgeGroup.Baby)) {
-            if (getGender().contentEquals("female")) {
-                if (!(hasCapability(BreedingState.Pregnant))) {
-                    for (Exit exit : thisLocation.getExits()) {
-                        Location destination = exit.getDestination();
-                        if (destination.containsAnActor()) {
-                            Actor actor = destination.getActor();
-                            if (actor instanceof Brachiosaur && ((Brachiosaur) actor).getGender().contentEquals("male")) {
-                                setPregnantCount(0);
-                                addCapability(BreedingState.Pregnant);
-                                break;
+            }
+            if(!hasCapability(AgeGroup.Baby)) {
+                if (getGender().contentEquals("female")) {
+                    if (!(hasCapability(BreedingState.Pregnant))) {
+                        for (Exit exit : thisLocation.getExits()) {
+                            Location destination = exit.getDestination();
+                            if (destination.containsAnActor()) {
+                                Actor actor = destination.getActor();
+                                if (actor instanceof Brachiosaur && ((Brachiosaur) actor).getGender().contentEquals("male")) {
+                                    setPregnantCount(0);
+                                    addCapability(BreedingState.Pregnant);
+                                    break;
+                                }
+
                             }
+                        }
+                    } else {
+                        incrementPregnantCount();
+                        if (getPregnantCount() == 30) {
+                            BrachiosaurEgg egg = new BrachiosaurEgg("egg", '0', false);
+                            egg.addCapability(eggOf.Brachiosaur);
+                            thisLocation.addItem(egg);
+                            removeCapability(BreedingState.Pregnant);
 
                         }
                     }
-                } else {
-                    incrementPregnantCount();
-                    if (getPregnantCount() == 30) {
-                        BrachiosaurEgg egg = new BrachiosaurEgg("egg", '0', false);
-                        egg.addCapability(eggOf.Brachiosaur);
-                        thisLocation.addItem(egg);
-                        removeCapability(BreedingState.Pregnant);
-
-                    }
                 }
             }
-        }
-        else {
-            setBabyAge(getBabyAge() + 1);
-            if (getBabyAge() == 50) {
-                removeCapability(AgeGroup.Baby);
+            else {
+                setBabyAge(getBabyAge() + 1);
+                if (getBabyAge() == 50) {
+                    removeCapability(AgeGroup.Baby);
+                }
             }
-        }
-        Action wander ;
-        if(isConscious()){
             setUnconsciousTurns(0);
             if(hitPoints>70){
                 wander=new FollowDinasour().getAction(this,map);
