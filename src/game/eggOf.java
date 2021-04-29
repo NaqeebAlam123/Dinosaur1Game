@@ -1,6 +1,6 @@
 package game;
 
 public enum eggOf {
-    Brachiosaur,Stegosaur
+    Brachiosaur,Stegosaur,Allosaur
 
 }

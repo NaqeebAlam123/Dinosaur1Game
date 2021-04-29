@@ -41,6 +41,7 @@ public class Brachiosaur extends Dinosaur {
                         this.heal(5);
                     }
                 }
+                thisLocation.setGround(tree);
             }
             else if(thisLocation.getGround() instanceof Bush){
                 if(r.nextInt(100)+1>50){
@@ -82,7 +83,7 @@ public class Brachiosaur extends Dinosaur {
                 }
             }
             setUnconsciousTurns(0);
-            if(hitPoints>70){
+            if(hitPoints>70 && !hasCapability(AgeGroup.Baby)){
                 wander=new Following(false,true,false).getAction(this,map);
             }
             else if(hitPoints<140){
@@ -100,7 +101,8 @@ public class Brachiosaur extends Dinosaur {
         else{
             incrementUnconsciousTurns();
             if(getUnconsciousTurns()==15){
-                displayChar='m';
+                map.removeActor(this);
+                thisLocation.addItem(new StegosaurCorpse("Brachiosaur",'?'));
             }
         }
 

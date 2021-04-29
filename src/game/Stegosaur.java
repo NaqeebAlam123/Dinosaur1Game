@@ -34,15 +34,14 @@ public class Stegosaur extends Dinosaur {
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
 		Location thisLocation=map.locationOf(this);
 		FoodSource foodSource=null;
-
 		Action wander ;
 		if(isConscious()){
 			if(thisLocation.getGround() instanceof Tree){
 				foodSource=(Tree)thisLocation.getGround();
+
 			}
 			else if(thisLocation.getGround() instanceof Bush){
 				foodSource=(Bush)thisLocation.getGround();
-
 			}
 			if(foodSource!=null){
 				for (Fruit fruits:foodSource.getFruits()) {
@@ -89,7 +88,7 @@ public class Stegosaur extends Dinosaur {
 				}
 			}
 			setUnconsciousTurns(0);
-			if(hitPoints>50){
+			if(hitPoints>50 && !hasCapability(AgeGroup.Baby)){
 				wander=new Following(false,true,false).getAction(this,map);
 			}
 			else if(hitPoints<90){
@@ -114,5 +113,6 @@ public class Stegosaur extends Dinosaur {
 		
 		return new DoNothingAction();
 	}
+
 
 }
