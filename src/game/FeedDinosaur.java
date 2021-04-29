@@ -41,14 +41,14 @@ public class FeedDinosaur extends Action {
               break;
           }
           else if(item instanceof vegetarianMealKit && (target instanceof Stegosaur||target instanceof Brachiosaur)){
-              Dinosaur dinosaur=(Dinosaur) actor;
+              Dinosaur dinosaur=(Dinosaur) target;
               dinosaur.heal(dinosaur.getMaxHitPoints()-dinosaur.getHitPoints());
               actor.removeItemFromInventory(item);
               break;
 
           }
           else if(item instanceof carnivoreMealKit && (target instanceof Allosaur)){
-              Dinosaur dinosaur=(Dinosaur) actor;
+              Dinosaur dinosaur=(Dinosaur) target;
               dinosaur.heal(dinosaur.getMaxHitPoints()-dinosaur.getHitPoints());
               actor.removeItemFromInventory(item);
               break;
