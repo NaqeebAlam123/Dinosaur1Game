@@ -28,6 +28,7 @@ public class Bush extends FoodSource {
             Fruit thisFruit=new Fruit("apple",'a',true);
             thisFruit.dropFruit();
             thisFruit.addCapability(FruitStatus.DROPPED);
+            location.addItem(thisFruit);
             add(thisFruit);
 
         }
