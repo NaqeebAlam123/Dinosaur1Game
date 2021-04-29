@@ -80,7 +80,10 @@ public class Brachiosaur extends Dinosaur {
         Action wander ;
         if(isConscious()){
             setUnconsciousTurns(0);
-            if(hitPoints<140){
+            if(hitPoints>70){
+                wander=new FollowDinasour().getAction(this,map);
+            }
+            else if(hitPoints<140){
                 System.out.println(this.name+"at ("+thisLocation.x()+","+thisLocation.y()+") is getting hungry!");
                 wander=new FollowFoodSource().getAction(this,map);
             }
