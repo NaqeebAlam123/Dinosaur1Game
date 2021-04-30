@@ -84,11 +84,11 @@ public class Brachiosaur extends Dinosaur {
             }
             setUnconsciousTurns(0);
             if(hitPoints>70 && !hasCapability(AgeGroup.Baby)){
-                wander=new Following(false,true,false).getAction(this,map);
+                wander=new Following(false,true,false,false).getAction(this,map);
             }
             else if(hitPoints<140){
                 System.out.println(this.name+"at ("+thisLocation.x()+","+thisLocation.y()+") is getting hungry!");
-                wander=new Following(true,false,false).getAction(this,map);
+                wander=new Following(true,false,false,false).getAction(this,map);
             }
             else{
                 wander=getBehaviour().getAction(this,map);

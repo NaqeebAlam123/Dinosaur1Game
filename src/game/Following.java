@@ -26,14 +26,19 @@ public class Following implements Behaviour {
      */
     private boolean toCorpse;
     /**
+     * indicates dinosaur wants to hunt
+     */
+    private boolean toAttack;
+    /**
      * Intiallises boolean values indicating whether dinsosaur wants to move dinosaur or foodSource
      * @param toBushTrees
      * @param toDinosaur
      */
-    public Following( boolean toBushTrees,boolean toDinosaur,boolean toCorpse){
+    public Following( boolean toBushTrees,boolean toDinosaur,boolean toCorpse,boolean toAttack){
         this.toDinosaur=toDinosaur;
         this.toBushTrees=toBushTrees;
         this.toCorpse=toCorpse;
+        this.toAttack=toAttack;
     }
 
     /**
