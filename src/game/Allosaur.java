@@ -4,15 +4,21 @@ import edu.monash.fit2099.engine.*;
 
 import java.util.Random;
 
+/**
+ * A carnivorous Dinosaur - Allosaur
+ * @Author Cheng Zi Ming
+ * @see Dinosaur
+ * @version 1.0.0
+ */
 public class Allosaur extends Dinosaur {
         // Will need to change this to a collection if Stegosaur gets additional Behaviours.
 
 
         /**
          * Constructor.
-         * All Stegosaurs are represented by a 'd' and have 100 hit points.
+         * All Allosaur are represented by a 'd' and have 100 hit points.
          *
-         * @param name the name of this Stegosaur
+         * @param name the name of this Allosaur
          */
         public Allosaur(String name,String gender) {
             super(name, 'd', 100, gender);
@@ -21,6 +27,10 @@ public class Allosaur extends Dinosaur {
 
         }
 
+    /**
+     *it handles the actions made by Allosaur at each turn
+     * @see edu.monash.fit2099.engine.Actor#playTurn(Actions, Action, GameMap, Display)
+     */
     @Override
     public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
         Random r=new Random();
