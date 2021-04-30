@@ -12,7 +12,8 @@ import edu.monash.fit2099.engine.*;
 public class Stegosaur extends Dinosaur {
 	// Will need to change this to a collection if Stegosaur gets additional Behaviours.
 
-
+	private boolean hurt;
+	private int hurtDuration;
 	/** 
 	 * Constructor.
 	 * All Stegosaurs are represented by a 'd' and have 100 hit points.
@@ -25,6 +26,41 @@ public class Stegosaur extends Dinosaur {
 		hitPoints = 50;
 
 	}
+	/**
+	 * A method to add a status called hurt to stegosaur
+	 * @param hurt define if a Stegosaur is attacked by Allosaur or not
+	 */
+	public void setHurt(boolean hurt){
+		this.hurt = hurt;
+		hurtDuration = 20;
+	}
+
+	/**
+	 * A method that return hurt status of stegosaur
+	 * @return boolean of hurt status
+	 */
+	public boolean getHurt(){
+		return hurt;
+	}
+
+	/**
+	 * decrease the duration of hurt until it reach 0
+	 */
+	public void decrementHurtDuration(){
+		if (hurtDuration > 0){
+			hurtDuration -= 1;
+		}
+	}
+
+	/**
+	 * Returns the remaining duration of hurt status
+	 * @return remaining duration of hurt status
+	 */
+	public int getHurtDuration(){
+		return hurtDuration;
+	}
+
+
 
 	/**
 	 *it handles the actions made by Stegosaur at each turn
