@@ -7,18 +7,26 @@ import edu.monash.fit2099.engine.GameMap;
 import java.util.HashMap;
 
 public abstract class Dinosaur extends Actor {
+
     private Behaviour behaviour;
+    private boolean hurt;
+    private int hurtDuration;
     private int unconsciousTurns=0;
+    private int babyAge=0;
+    private String gender;
+    private String target;
+
 
     public int getBabyAge() {
         return babyAge;
     }
 
     public void setBabyAge(int babyAge) {
+        if(babyAge >= 0){
         this.babyAge = babyAge;
+        }
     }
 
-    private int babyAge=0;
 
     public Behaviour getBehaviour() {
         return behaviour;
@@ -68,23 +76,41 @@ public abstract class Dinosaur extends Actor {
         pregnantCount+=1;
     }
 
+    /**
+     * A method to add a status called hurt to stegosaur
+     * @param hurt define if a Stegosaur is attacked by Allosaur or not
+     */
     public void setHurt(boolean hurt){
         this.hurt = hurt;
         hurtDuration = 20;
     }
+
+    /**
+     * A method that return hurt status of stegosaur
+     * @return boolean of hurt status
+     */
     public boolean getHurt(){
         return hurt;
     }
 
+    /**
+     * decrease the duration of hurt until it reach 0
+     */
     public void decrementHurtDuration(){
+        if (hurtDuration > 0){
         hurtDuration -= 1;
+        }
     }
+
+    /**
+     * Returns the remaining duration of hurt status
+     * @return remaining duration of hurt status
+     */
     public int getHurtDuration(){
         return hurtDuration;
     }
 
-    private boolean hurt;
-    private int hurtDuration;
+
     private int pregnantCount;
     private boolean breedingState=false;
     public String getGender() {
@@ -93,15 +119,11 @@ public abstract class Dinosaur extends Actor {
 
 
 
-
-
-    private String gender;
-
     public String getTarget() {
         return target;
     }
 
-    private String target;
+
     public void incrementUnconsciousTurns(){
         unconsciousTurns=unconsciousTurns+1;
     }
