@@ -97,7 +97,7 @@ public class Allosaur extends Dinosaur {
                 }
             }
             setUnconsciousTurns(0);
-            if(hitPoints>50 && !hasCapability(AgeGroup.Baby)){
+            if(hitPoints>50 && hitPoints < 70 && !hasCapability(AgeGroup.Baby)){
                 wander=new Following(false,true,false).getAction(this,map);
             }
             else if(hitPoints<90){
