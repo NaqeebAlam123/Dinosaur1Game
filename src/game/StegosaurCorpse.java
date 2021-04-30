@@ -1,6 +1,6 @@
-package src.game;
+package game;
 
-public class StegosaurCorpse extends Corpse{
+public class StegosaurCorpse extends Corpse {
     private int duration = 20;
     public StegosaurCorpse(String name, char displayCharacter){
         super(name,displayCharacter,false);
