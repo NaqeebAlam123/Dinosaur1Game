@@ -1,7 +1,8 @@
-package src.game;
+package game;
 
 public class BrachiosaurCorpse extends Corpse{
     private int duration = 40;
+
     public BrachiosaurCorpse(String name, char displayChar){
         super(name,displayChar,false);
     }

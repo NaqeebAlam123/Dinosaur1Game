@@ -43,6 +43,13 @@ public class Stegosaur extends Dinosaur {
 			else if(thisLocation.getGround() instanceof Bush){
 				foodSource=(Bush)thisLocation.getGround();
 			}
+			if (this.getHurt()){
+				if(this.getHurtDuration() == 0){
+					this.setHurt(false);
+				}else{
+				this.decrementHurtDuration();
+				}
+			}
 			if(foodSource!=null){
 				for (Fruit fruits:foodSource.getFruits()) {
 					if (fruits.hasCapability(FruitStatus.DROPPED)) {

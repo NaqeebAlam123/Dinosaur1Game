@@ -4,6 +4,8 @@ import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 
+import java.util.HashMap;
+
 public abstract class Dinosaur extends Actor {
     private Behaviour behaviour;
     private int unconsciousTurns=0;
@@ -63,9 +65,26 @@ public abstract class Dinosaur extends Actor {
         this.target = target;
     }
     public void incrementPregnantCount(){
-        pregnantCount=pregnantCount+1;
+        pregnantCount+=1;
     }
 
+    public void setHurt(boolean hurt){
+        this.hurt = hurt;
+        hurtDuration = 20;
+    }
+    public boolean getHurt(){
+        return hurt;
+    }
+
+    public void decrementHurtDuration(){
+        hurtDuration -= 1;
+    }
+    public int getHurtDuration(){
+        return hurtDuration;
+    }
+
+    private boolean hurt;
+    private int hurtDuration;
     private int pregnantCount;
     private boolean breedingState=false;
     public String getGender() {

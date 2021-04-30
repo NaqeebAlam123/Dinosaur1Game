@@ -1,4 +1,4 @@
-package src.game;
+package game;
 
 public class AllosaurCorpse extends Corpse{
     private int duration = 20;
