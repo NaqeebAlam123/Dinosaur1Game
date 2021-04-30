@@ -35,7 +35,7 @@ public class Allosaur extends Dinosaur {
     public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
         Random r=new Random();
         Location thisLocation=map.locationOf(this);
-        Action wander ;
+        Action wander = null;
         if(isConscious()){
             if(thisLocation.getItems() instanceof Corpse){ //if it is a corpse
                 Corpse food = (Corpse) thisLocation.getItems();
@@ -52,6 +52,7 @@ public class Allosaur extends Dinosaur {
                 thisLocation.removeItem(food);
             }else if(thisLocation.getActor() instanceof Stegosaur){
                     Stegosaur stegosaur = (Stegosaur) thisLocation.getActor();
+
                     if(!stegosaur.getHurt()){ // If stegosaur is not hurt
                         this.heal(20);
                         stegosaur.hurt(20); //attack stegosaur
@@ -98,11 +99,21 @@ public class Allosaur extends Dinosaur {
             }
             setUnconsciousTurns(0);
             if(hitPoints>50 && hitPoints < 70 && !hasCapability(AgeGroup.Baby)){
-                wander=new Following(false,true,false,false).getAction(this,map);
+                int breed = r.nextInt(100);
+                if(breed < 30) {
+                    wander = new Following(false, true, false, false).getAction(this, map);
+                }
             }
             else if(hitPoints<90){
+
                 System.out.println(this.name+"at ("+thisLocation.x()+","+thisLocation.y()+") is getting hungry!");
-                wander=new Following(false,true,true,false).getAction(this,map);;
+                if (hitPoints < 70){
+                    // Very Hungry
+                wander=new Following(false,false,true,false).getAction(this,map);
+                }else{
+                    // Not so hungry
+                    wander=new Following(false,false,false,true).getAction(this,map);
+                }
             }
             else{
                 wander=getBehaviour().getAction(this,map);

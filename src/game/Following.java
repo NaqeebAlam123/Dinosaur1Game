@@ -68,7 +68,7 @@ public class Following implements Behaviour {
             for (int x : map.getXRange()) {
                 if (((toDinosaur) && (map.at(x,y).getActor() instanceof Stegosaur && actor instanceof Stegosaur && ((Stegosaur) actor).getTarget().contentEquals(((Stegosaur)map.at(x,y).getActor()).getGender()))
                 ||(map.at(x,y).getActor() instanceof Brachiosaur && actor instanceof  Brachiosaur&& ((Brachiosaur) actor).getTarget().contentEquals(((Brachiosaur)map.at(x,y).getActor()).getGender())))
-                        ||((toBushTrees) &&(map.at(x,y).getGround() instanceof Tree||map.at(x,y).getGround() instanceof Bush))|| ((toCorpse) && map.at(x,y).getItems() instanceof Corpse)) {
+                        ||((toBushTrees) &&(map.at(x,y).getGround() instanceof Tree||map.at(x,y).getGround() instanceof Bush))|| ((toCorpse) && map.at(x,y).getItems() instanceof Corpse)|| ((toAttack) && map.at(x,y).getActor() instanceof Stegosaur)) {
                         for (int i = 0; i <= possibleDestinations.size() - 1; i++) {
                             int thisDistance = Util.distance(possibleDestinations.get(i), map.at(x, y));
                             if (thisDistance < bestDistances.get(i)) {
