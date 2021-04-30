@@ -43,11 +43,12 @@ public class Stegosaur extends Dinosaur {
 			else if(thisLocation.getGround() instanceof Bush){
 				foodSource=(Bush)thisLocation.getGround();
 			}
-			if (this.getHurt()){
-				if(this.getHurtDuration() == 0){
+
+			if (this.getHurt()){ // if it is hurt by allosaur before
+				if(this.getHurtDuration() == 0){ //counter is up, set hurt to false(healed up)
 					this.setHurt(false);
 				}else{
-				this.decrementHurtDuration();
+				this.decrementHurtDuration(); //decrease counter every turn
 				}
 			}
 			if(foodSource!=null){
