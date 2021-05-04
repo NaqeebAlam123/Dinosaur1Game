@@ -26,6 +26,7 @@ public class Player extends Actor {
 	 * @param hitPoints   Player's starting number of hitpoints
 	 */
 	public Player(String name, char displayChar, int hitPoints) {
+
 		super(name, displayChar, hitPoints);
 	}
 
@@ -34,13 +35,22 @@ public class Player extends Actor {
 	 * @param points
 	 */
 	public   void incrementPoints(int points){
-		ecoPoints=ecoPoints+points;
+		ecoPoints += points;
 	}
 	/**
 	 * Deduct eco points
 	 * @param points
 	 */
-	public void deductPoints(int points){ecoPoints=ecoPoints-points;}
+	public boolean deductPoints(int points){
+		boolean deduct = false;
+		if ((ecoPoints - points) >= 0){
+			ecoPoints -= points;
+			deduct = true;
+		}else{
+			System.out.println("Insufficient Eco-points");
+		}
+		return deduct;
+	}
 	/**
 	 * get eco points
 	 */

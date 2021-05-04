@@ -13,6 +13,8 @@ public abstract class Dinosaur extends Actor {
     private int babyAge=0;
     private String gender;
     private String target;
+    private int pregnantCount;
+    private boolean breedingState=false;
 
 
     public int getBabyAge() {
@@ -56,15 +58,26 @@ public abstract class Dinosaur extends Actor {
     }
 
     public void setPregnantCount(int pregnantCount) {
+        if(pregnantCount >= 20){
         this.pregnantCount = pregnantCount;
+        }else{
+            System.out.println("invalid pregnant count");
+        }
     }
 
     public void setBreedingState(boolean breedingState) {
-        this.breedingState = breedingState;
+        if (breedingState || !breedingState) {
+            this.breedingState = breedingState;
+        }
     }
 
     public void setGender(String gender) {
-        this.gender = gender;
+        if(gender.equals("M")|| gender.equals("m")||gender.equals("F")||gender.equals("f")||gender.equals("male")
+        ||gender.equals("female")){
+        this.gender = gender;}
+        else{
+            System.out.println("Invalid gender.");
+        }
     }
 
     public void setTarget(String target) {
@@ -75,8 +88,6 @@ public abstract class Dinosaur extends Actor {
     }
 
 
-    private int pregnantCount;
-    private boolean breedingState=false;
     public String getGender() {
         return gender;
     }

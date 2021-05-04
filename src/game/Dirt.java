@@ -45,7 +45,7 @@ public class Dirt extends Ground {
 	/**
 	 * This method returns number of bushes and number of trees it is next to in form of list
 	 * @param location stores the current location
-	 * @return
+	 * @return return number of bushes and number of trees
 	 */
 	public int [] returnTreesAndBushes(Location location){
 		int t=0;

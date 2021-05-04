@@ -30,36 +30,43 @@ public class PickupFromVendingMachine extends PickUpItemAction {
      * This method is executed chooses to pick an item from Vending Machine
      * @param actor The actor performing the action.
      * @param map The map the actor is on.
-     * @return
+     * @return a respond on item obtained from vending machine
      */
     @Override
     public String execute(Actor actor, GameMap map) {
         String str=super.execute(actor, map);
         Player player=(Player)actor;
+        boolean sufficientFund = false;
         if (item instanceof Fruit){
-            player.deductPoints(((Fruit) item).ecoPoints);
+            sufficientFund = player.deductPoints(((Fruit)item).ecoPoints);
         }
         else if(item instanceof vegetarianMealKit){
-            player.deductPoints(((vegetarianMealKit) item).ecoPoints);
+            sufficientFund = player.deductPoints(((vegetarianMealKit) item).ecoPoints);
 
         }
         else if(item instanceof carnivoreMealKit){
-            player.deductPoints(((carnivoreMealKit) item).ecoPoints);
+            sufficientFund = player.deductPoints(((carnivoreMealKit) item).ecoPoints);
 
         }
         else if(item instanceof StegosaurEgg){
-            player.deductPoints(((StegosaurEgg) item).ecoPoints);
+            sufficientFund = player.deductPoints(((StegosaurEgg) item).ecoPoints);
 
         }
         else if(item instanceof  BrachiosaurEgg){
-            player.deductPoints(((BrachiosaurEgg) item).ecoPoints);
+            sufficientFund = player.deductPoints(((BrachiosaurEgg) item).ecoPoints);
 
         }
         else if(item instanceof Laser){
-            player.deductPoints(((Laser) item).ecoPoints);
+            sufficientFund = player.deductPoints(((Laser) item).ecoPoints);
 
         }
-        return  str+" from the Vending Machine";
+        if(sufficientFund){
+            str += " from the Vending Machine";
+        }
+        else{
+            str = "Insufficient Fund.";
+        }
+        return  str;
 
 
     }

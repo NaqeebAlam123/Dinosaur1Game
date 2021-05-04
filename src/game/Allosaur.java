@@ -52,16 +52,28 @@ public class Allosaur extends Dinosaur {
                 thisLocation.removeItem(food);
             }else if(thisLocation.getActor() instanceof Stegosaur){
                     Stegosaur stegosaur = (Stegosaur) thisLocation.getActor();
-
+                    if (hasCapability(AgeGroup.Baby)){ // Its a baby
+                        if(!stegosaur.getHurt()){ // If stegosaur is not hurt
+                            this.heal(10);
+                            stegosaur.hurt(10); //attack stegosaur
+                            stegosaur.setHurt(true);
+                            if(stegosaur.getHitPoints() <= 0){
+                                this.heal(this.getMaxHitPoints()-this.getHitPoints());
+                                ActorLocations actorLocations = new ActorLocations();
+                                actorLocations.remove(stegosaur); //remove dead stegosaur
+                            }
+                        }
+                    }else{
                     if(!stegosaur.getHurt()){ // If stegosaur is not hurt
                         this.heal(20);
                         stegosaur.hurt(20); //attack stegosaur
                         stegosaur.setHurt(true);
                         if(stegosaur.getHitPoints() <= 0){
-                            this.heal(50);
+                            this.heal(this.getMaxHitPoints()-this.getHitPoints());
                             ActorLocations actorLocations = new ActorLocations();
                             actorLocations.remove(stegosaur); //remove dead stegosaur
                         }
+                    }
                     }
             }
             if(!hasCapability(AgeGroup.Baby)) {
