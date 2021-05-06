@@ -112,8 +112,8 @@ public class Allosaur extends Dinosaur {
             }
             setUnconsciousTurns(0);
             if(hitPoints>50 && hitPoints < 70 && !hasCapability(AgeGroup.Baby)){
-                int breed = r.nextInt(100);
-                if(breed < 30 && !this.getBreedingState()) {
+                int breed = r.nextInt(100)+1;
+                if(breed < 70 && !this.getBreedingState()) {
                     this.setBreedingState(true);
                     wander = new Following(false, true, false, false).getAction(this, map);
                 }

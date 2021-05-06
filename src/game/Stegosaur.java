@@ -137,7 +137,7 @@ public class Stegosaur extends Dinosaur {
 			setUnconsciousTurns(0);
 			if(hitPoints>50 && !hasCapability(AgeGroup.Baby)){
 				Random r = new Random();
-				int breed = r.nextInt(100);
+				int breed = r.nextInt(100)+1;
 				if(breed < 70 && !this.getBreedingState()) {
 					this.setBreedingState(true);
 					wander = new Following(false, true, false, false).getAction(this, map);
