@@ -81,6 +81,7 @@ public class Brachiosaur extends Dinosaur {
                 setBabyAge(getBabyAge() + 1);
                 if (getBabyAge() == 50) {
                     removeCapability(AgeGroup.Baby);
+                    setHitPoints(100);
                 }
             }
             setUnconsciousTurns(0);

@@ -127,6 +127,7 @@ public class Allosaur extends Dinosaur {
                 setBabyAge(getBabyAge()+1);
                 if (getBabyAge()==50){
                     removeCapability(AgeGroup.Baby);
+                    setHitPoints(50);
                 }
             }
             setUnconsciousTurns(0);
