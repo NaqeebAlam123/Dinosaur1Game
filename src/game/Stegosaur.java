@@ -110,6 +110,7 @@ public class Stegosaur extends Dinosaur {
 								if (actor instanceof Stegosaur && ((Stegosaur) actor).getGender().contentEquals("male")) {
 									setPregnantCount(0);
 									addCapability(BreedingState.Pregnant);
+									this.setBreedingState(false); //back to false after success breeding
 									break;
 								}
 

@@ -59,6 +59,7 @@ public class Brachiosaur extends Dinosaur {
                                 if (actor instanceof Brachiosaur && ((Brachiosaur) actor).getGender().contentEquals("male")) {
                                     setPregnantCount(0);
                                     addCapability(BreedingState.Pregnant);
+                                    this.setBreedingState(false); //back to false after success breeding
                                     break;
                                 }
 

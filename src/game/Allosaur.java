@@ -86,6 +86,7 @@ public class Allosaur extends Dinosaur {
                                 if (actor instanceof Allosaur && ((Allosaur) actor).getGender().contentEquals("male")) {
                                     setPregnantCount(0);
                                     addCapability(BreedingState.Pregnant);
+                                    this.setBreedingState(false); //back to false after success breeding
                                     break;
                                 }
 
