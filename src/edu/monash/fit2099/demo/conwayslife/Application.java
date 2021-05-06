@@ -3,6 +3,10 @@ package src.edu.monash.fit2099.demo.conwayslife;
 import java.util.Arrays;
 import java.util.List;
 
+import edu.monash.fit2099.demo.conwayslife.ConwayGameMap;
+import edu.monash.fit2099.demo.conwayslife.Floor;
+import edu.monash.fit2099.demo.conwayslife.Player;
+import edu.monash.fit2099.demo.conwayslife.Tree;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.FancyGroundFactory;

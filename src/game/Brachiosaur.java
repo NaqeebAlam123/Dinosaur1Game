@@ -83,7 +83,9 @@ public class Brachiosaur extends Dinosaur {
                 }
             }
             setUnconsciousTurns(0);
+            Following m;
             if(hitPoints>70 && !hasCapability(AgeGroup.Baby)){
+
                 wander=new Following(false,true,false,false).getAction(this,map);
             }
             else if(hitPoints<140){

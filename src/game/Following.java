@@ -64,6 +64,7 @@ public class Following implements Behaviour {
             }
         }
 
+
         for (int y : map.getYRange()) {
             for (int x : map.getXRange()) {
                 if (((toDinosaur) && (map.at(x,y).getActor() instanceof Stegosaur && actor instanceof Stegosaur && ((Stegosaur) actor).getTarget().contentEquals(((Stegosaur)map.at(x,y).getActor()).getGender()))
@@ -78,14 +79,17 @@ public class Following implements Behaviour {
                 }
             }
         }
-        int index = -1;
-        for (int i = 0; i <= possibleDestinations.size() - 1; i++) {
+        int index = 0;
+        bestDistance=bestDistances.get(0);
+        bestDestination=possibleDestinations.get(0);
+        for (int i = 1; i <= possibleDestinations.size() - 1; i++) {
             if (bestDistances.get(i) < bestDistance) {
+                bestDestination=possibleDestinations.get(i);
                 bestDistance = bestDistances.get(i);
                 index = i;
             }
         }
-        if (possibleDestinations.size() == 0) {
+        if (possibleDestinations.size() != 0) {
             return bestDestination.getMoveAction(actor, "around", hotKeys.get(index));
         } else {
             return null;
