@@ -13,6 +13,7 @@ import edu.monash.fit2099.engine.Location;
  * @see Laser
  * @see StegosaurEgg
  * @see BrachiosaurEgg
+ * @see AllosaurEgg
  * @version 1.0.0
  */
 public class VendingMachine extends Ground {
@@ -40,7 +41,10 @@ public class VendingMachine extends Ground {
      * BrachiosaurEgg object
      */
     private BrachiosaurEgg brachiosaurEgg=new BrachiosaurEgg("brachiosaurEgg",'0',true);
-
+    /**
+     * AllosaurEgg object
+     */
+    private AllosaurEgg allosaurEgg = new AllosaurEgg("AllosaurEgg",'0',true);
     /**
      * Returns the actions that can be done on Vending Machine
      * @param actor the Actor acting
@@ -71,6 +75,9 @@ public class VendingMachine extends Ground {
             }
             if(points> brachiosaurEgg.ecoPoints){
                 actions.add(new PickupFromVendingMachine(brachiosaurEgg));
+            }
+            if(points> allosaurEgg.ecoPoints){
+                actions.add(new PickupFromVendingMachine(allosaurEgg));
             }
         }
      return actions;
