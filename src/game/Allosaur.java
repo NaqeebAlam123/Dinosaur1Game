@@ -40,13 +40,21 @@ public class Allosaur extends Dinosaur {
             if(thisLocation.getItems() instanceof Corpse){ //if it is a corpse
                 Corpse food = (Corpse) thisLocation.getItems();
                 if (food instanceof AllosaurCorpse || food instanceof StegosaurCorpse){
+                    System.out.println("Allosaur found a corpse and ate it. Heal 50");
+                    if(this.getMaxHitPoints() > (this.getHitPoints() + 50)){
                     this.heal(50);
+                    }else{
+                        this.setHitPoints(this.getMaxHitPoints());
+                    }
                     thisLocation.removeItem(food);
                 }else if(food instanceof BrachiosaurCorpse){
-                    this.heal(100);
+                    int heal = this.getMaxHitPoints()-this.getHitPoints();
+                    System.out.println("Allosaur found a Brachiosaur corpse and ate it. Heal to full hp");
+                    this.heal(heal);
                     thisLocation.removeItem(food);
                 }
             }else if(thisLocation.getItems() instanceof Egg){
+                System.out.println("Allosaur found an egg and ate it. Heal 10hp");
                 Egg food = (Egg) thisLocation.getItems();
                 this.heal(10);
                 thisLocation.removeItem(food);
@@ -54,22 +62,33 @@ public class Allosaur extends Dinosaur {
                     Stegosaur stegosaur = (Stegosaur) thisLocation.getActor();
                     if (hasCapability(AgeGroup.Baby)){ // Its a baby
                         if(!stegosaur.getHurt()){ // If stegosaur is not hurt
+                            System.out.println("Baby Allosaur attacks Stegosaur. Heal 10hp");
                             this.heal(10);
                             stegosaur.hurt(10); //attack stegosaur
                             stegosaur.setHurt(true);
                             if(stegosaur.getHitPoints() <= 0){
-                                this.heal(this.getMaxHitPoints()-this.getHitPoints());
+                                if(this.getMaxHitPoints() > (this.getHitPoints() + 50)){
+                                    this.heal(50);
+                                }else{
+                                    this.setHitPoints(this.getMaxHitPoints());
+                                }
                                 ActorLocations actorLocations = new ActorLocations();
                                 actorLocations.remove(stegosaur); //remove dead stegosaur
                             }
                         }
                     }else{
                     if(!stegosaur.getHurt()){ // If stegosaur is not hurt
+                        System.out.println(this.name + "attacks Stegosaur. Heals 20hp");
                         this.heal(20);
                         stegosaur.hurt(20); //attack stegosaur
                         stegosaur.setHurt(true);
                         if(stegosaur.getHitPoints() <= 0){
-                            this.heal(this.getMaxHitPoints()-this.getHitPoints());
+                            System.out.println("Stegosaur is dead. Continue to feed on corpse");
+                            if(this.getMaxHitPoints() > (this.getHitPoints() + 50)){
+                                this.heal(50);
+                            }else{
+                                this.setHitPoints(this.getMaxHitPoints());
+                            }
                             ActorLocations actorLocations = new ActorLocations();
                             actorLocations.remove(stegosaur); //remove dead stegosaur
                         }
