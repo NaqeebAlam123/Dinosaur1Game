@@ -36,37 +36,32 @@ public class PickupFromVendingMachine extends PickUpItemAction {
     public String execute(Actor actor, GameMap map) {
         String str=super.execute(actor, map);
         Player player=(Player)actor;
-        boolean sufficientFund = false;
+
         if (item instanceof Fruit){
-            sufficientFund = player.deductPoints(((Fruit)item).ecoPoints);
+            player.deductPoints(((Fruit)item).ecoPoints);
         }
         else if(item instanceof vegetarianMealKit){
-            sufficientFund = player.deductPoints(((vegetarianMealKit) item).ecoPoints);
+            player.deductPoints(((vegetarianMealKit) item).ecoPoints);
 
         }
         else if(item instanceof carnivoreMealKit){
-            sufficientFund = player.deductPoints(((carnivoreMealKit) item).ecoPoints);
+            player.deductPoints(((carnivoreMealKit) item).ecoPoints);
 
         }
         else if(item instanceof StegosaurEgg){
-            sufficientFund = player.deductPoints(((StegosaurEgg) item).ecoPoints);
+            player.deductPoints(((StegosaurEgg) item).ecoPoints);
 
         }
         else if(item instanceof  BrachiosaurEgg){
-            sufficientFund = player.deductPoints(((BrachiosaurEgg) item).ecoPoints);
+            player.deductPoints(((BrachiosaurEgg) item).ecoPoints);
 
         }
         else if(item instanceof Laser){
-            sufficientFund = player.deductPoints(((Laser) item).ecoPoints);
+            player.deductPoints(((Laser) item).ecoPoints);
 
         }
-        if(sufficientFund){
-            str += " from the Vending Machine";
-        }
-        else{
-            str = "Insufficient Fund.";
-        }
-        return  str;
+
+        return  str + " from the Vending Machine";
 
 
     }

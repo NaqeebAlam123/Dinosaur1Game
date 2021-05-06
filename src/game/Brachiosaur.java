@@ -28,7 +28,7 @@ public class Brachiosaur extends Dinosaur {
     public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
         Random r=new Random();
         Location thisLocation=map.locationOf(this);
-        Action wander ;
+        Action wander = null;
 
 
         if(isConscious()){
@@ -85,8 +85,11 @@ public class Brachiosaur extends Dinosaur {
             setUnconsciousTurns(0);
             Following m;
             if(hitPoints>70 && !hasCapability(AgeGroup.Baby)){
-
-                wander=new Following(false,true,false,false).getAction(this,map);
+                int breed = r.nextInt(100);
+                if(breed < 30 && !this.getBreedingState()) {
+                    this.setBreedingState(true);
+                    wander = new Following(false, true, false, false).getAction(this, map);
+                }
             }
             else if(hitPoints<140){
                 System.out.println(this.name+"at ("+thisLocation.x()+","+thisLocation.y()+") is getting hungry!");

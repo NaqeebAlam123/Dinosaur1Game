@@ -3,6 +3,8 @@ package game;
 
 import edu.monash.fit2099.engine.*;
 
+import java.util.Random;
+
 /**
  * A herbivorous dinosaur.
  * @author Muhammad Naqeeb Alam
@@ -70,7 +72,7 @@ public class Stegosaur extends Dinosaur {
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
 		Location thisLocation=map.locationOf(this);
 		FoodSource foodSource=null;
-		Action wander ;
+		Action wander = null;
 		if(isConscious()){
 			if(thisLocation.getGround() instanceof Tree){
 				foodSource=(Tree)thisLocation.getGround();
@@ -133,7 +135,12 @@ public class Stegosaur extends Dinosaur {
 			}
 			setUnconsciousTurns(0);
 			if(hitPoints>50 && !hasCapability(AgeGroup.Baby)){
-				wander=new Following(false,true,false,false).getAction(this,map);
+				Random r = new Random();
+				int breed = r.nextInt(100);
+				if(breed < 70 && !this.getBreedingState()) {
+					this.setBreedingState(true);
+					wander = new Following(false, true, false, false).getAction(this, map);
+				}
 			}
 			else if(hitPoints<90){
 				System.out.println(this.name+"at ("+thisLocation.x()+","+thisLocation.y()+") is getting hungry!");

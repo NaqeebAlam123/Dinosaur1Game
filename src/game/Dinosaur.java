@@ -58,7 +58,7 @@ public abstract class Dinosaur extends Actor {
     }
 
     public void setPregnantCount(int pregnantCount) {
-        if(pregnantCount >= 20){
+        if(pregnantCount >= 0){
         this.pregnantCount = pregnantCount;
         }else{
             System.out.println("invalid pregnant count");
@@ -69,6 +69,10 @@ public abstract class Dinosaur extends Actor {
         if (breedingState || !breedingState) {
             this.breedingState = breedingState;
         }
+    }
+
+    public boolean getBreedingState(){
+        return breedingState;
     }
 
     public void setGender(String gender) {
