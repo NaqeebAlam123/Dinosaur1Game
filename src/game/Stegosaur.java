@@ -132,6 +132,7 @@ public class Stegosaur extends Dinosaur {
 				setBabyAge(getBabyAge()+1);
 				if (getBabyAge()==30){
 					removeCapability(AgeGroup.Baby);
+					setHitPoints(50);
 				}
 			}
 			setUnconsciousTurns(0);
