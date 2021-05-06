@@ -145,7 +145,7 @@ public class Stegosaur extends Dinosaur {
 				}
 			}
 			else if(hitPoints<90){
-				System.out.println(this.name+"at ("+thisLocation.x()+","+thisLocation.y()+") is getting hungry!");
+				System.out.println(this.name+" at ("+thisLocation.x()+","+thisLocation.y()+") is getting hungry!");
 				wander=new Following(true,false,false,false).getAction(this,map);;
 			}
 			else{

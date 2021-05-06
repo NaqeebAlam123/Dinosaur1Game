@@ -2,6 +2,7 @@ package game;
 
 import edu.monash.fit2099.engine.*;
 
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -21,7 +22,7 @@ public class Allosaur extends Dinosaur {
          * @param name the name of this Allosaur
          */
         public Allosaur(String name,String gender) {
-            super(name, 'd', 100, gender);
+            super(name, 'A', 100, gender);
 
             hitPoints = 50;
 
@@ -35,34 +36,65 @@ public class Allosaur extends Dinosaur {
     public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
         Random r=new Random();
         Location thisLocation=map.locationOf(this);
+        int x = thisLocation.x();
+        int y = thisLocation.y();
+        Actor back = null;
+        Actor bottom = null;
+        Actor front = map.at(x + 1, y).getActor();
+        if(x> 1){
+        back = map.at(x - 1, y).getActor();}
+        Actor top = map.at(x , y + 1).getActor();
+        if(y>1){
+        bottom = map.at(x, y - 1).getActor();}
         Action wander = null;
         if(isConscious()){
-            if(thisLocation.getItems() instanceof Corpse){ //if it is a corpse
-                Corpse food = (Corpse) thisLocation.getItems();
-                if (food instanceof AllosaurCorpse || food instanceof StegosaurCorpse){
+            boolean corpseExist = false;
+            Corpse corpse = null;
+            Egg egg = null;
+            List<Item> item = thisLocation.getItems();
+            for(int i =0;i<item.size();i++){
+                if(item.get(i) instanceof Corpse){
+                    corpse = (Corpse) item.get(i);
+                    corpseExist = true;
+                }else if(item.get(i) instanceof  Egg){
+                    egg = (Egg) item.get(i);
+                }
+            }
+            if(corpseExist){ //if it is a corpse
+                if (corpse instanceof AllosaurCorpse || corpse instanceof StegosaurCorpse){
                     System.out.println("Allosaur found a corpse and ate it. Heal 50");
                     if(this.getMaxHitPoints() > (this.getHitPoints() + 50)){
                     this.heal(50);
                     }else{
                         this.setHitPoints(this.getMaxHitPoints());
                     }
-                    thisLocation.removeItem(food);
-                }else if(food instanceof BrachiosaurCorpse){
+                    thisLocation.removeItem(corpse);
+                }else if(corpse instanceof BrachiosaurCorpse){
                     int heal = this.getMaxHitPoints()-this.getHitPoints();
                     System.out.println("Allosaur found a Brachiosaur corpse and ate it. Heal to full hp");
                     this.heal(heal);
-                    thisLocation.removeItem(food);
+                    thisLocation.removeItem(corpse);
                 }
             }else if(thisLocation.getItems() instanceof Egg){
                 System.out.println("Allosaur found an egg and ate it. Heal 10hp");
-                Egg food = (Egg) thisLocation.getItems();
                 this.heal(10);
-                thisLocation.removeItem(food);
-            }else if(thisLocation.getActor() instanceof Stegosaur){
-                    Stegosaur stegosaur = (Stegosaur) thisLocation.getActor();
+                thisLocation.removeItem(egg);
+            }else if(top instanceof Stegosaur|| bottom instanceof Stegosaur
+                    || front instanceof Stegosaur|| back instanceof  Stegosaur){
+                Stegosaur stegosaur = null;
+                    if(top instanceof  Stegosaur){
+                        stegosaur = (Stegosaur) top;
+                    }else if(bottom instanceof Stegosaur){
+                        stegosaur = (Stegosaur) bottom;
+                }else if(front instanceof Stegosaur){
+                        stegosaur = (Stegosaur) front;
+                    }
+                    if (back instanceof  Stegosaur){
+                        stegosaur = (Stegosaur) back;
+                    }
                     if (hasCapability(AgeGroup.Baby)){ // Its a baby
                         if(!stegosaur.getHurt()){ // If stegosaur is not hurt
-                            System.out.println("Baby Allosaur attacks Stegosaur. Heal 10hp");
+                            System.out.println("Baby Allosaur at ("+ thisLocation.x() + ", " + thisLocation.y() + ") attacks Stegosaur. Heal 10hp");
                             this.heal(10);
                             stegosaur.hurt(10); //attack stegosaur
                             stegosaur.setHurt(true);
@@ -78,7 +110,7 @@ public class Allosaur extends Dinosaur {
                         }
                     }else{
                     if(!stegosaur.getHurt()){ // If stegosaur is not hurt
-                        System.out.println(this.name + "attacks Stegosaur. Heals 20hp");
+                        System.out.println("Allosaur  at ( "+ thisLocation.x() + ", " + thisLocation.y() + ") attacks Stegosaur. Heals 20hp");
                         this.heal(20);
                         stegosaur.hurt(20); //attack stegosaur
                         stegosaur.setHurt(true);
@@ -114,9 +146,9 @@ public class Allosaur extends Dinosaur {
                     } else {
                         incrementPregnantCount();
                         if (getPregnantCount() == 20) {
-                            StegosaurEgg egg = new StegosaurEgg("egg", '0', false);
-                            egg.addCapability(eggOf.Allosaur);
-                            thisLocation.addItem(egg);
+                            AllosaurEgg EGG = new AllosaurEgg("egg", '0', false);
+                            EGG.addCapability(eggOf.Allosaur);
+                            thisLocation.addItem(EGG);
                             removeCapability(BreedingState.Pregnant);
 
                         }
@@ -140,7 +172,7 @@ public class Allosaur extends Dinosaur {
             }
             else if(hitPoints<90){
 
-                System.out.println(this.name+"at ("+thisLocation.x()+","+thisLocation.y()+") is getting hungry!");
+                System.out.println(this.name+" at ("+thisLocation.x()+","+thisLocation.y()+") is getting hungry!");
                 if (hitPoints < 70){
                     // Very Hungry
                 wander=new Following(false,false,true,false).getAction(this,map);
