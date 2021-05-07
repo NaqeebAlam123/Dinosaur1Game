@@ -144,6 +144,7 @@ public class Stegosaur extends Dinosaur {
 				Random r = new Random();
 				int breed = r.nextInt(100)+1;
 				if(breed < 70 && !this.getBreedingState()) {
+					System.out.println("Stegosaur at (" + thisLocation.x() + ", " + thisLocation.y() + ") wants to breed.");
 					this.setBreedingState(true);
 					wander = new Following(false, true, false, false).getAction(this, map);
 				}

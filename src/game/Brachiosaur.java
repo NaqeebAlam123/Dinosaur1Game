@@ -94,6 +94,7 @@ public class Brachiosaur extends Dinosaur {
             if(hitPoints>70 && !hasCapability(AgeGroup.Baby)){
                 int breed = r.nextInt(100)+1;
                 if(breed < 70 && !this.getBreedingState()) {
+                    System.out.println("Brachiosaur at (" + thisLocation.x() + ", " + thisLocation.y() + ") wants to breed.");
                     this.setBreedingState(true);
                     wander = new Following(false, true, false, false).getAction(this, map);
                 }

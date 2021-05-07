@@ -49,8 +49,10 @@ public class Allosaur extends Dinosaur {
         Action wander = null;
         if(isConscious()){
             boolean corpseExist = false;
+            boolean eggExist = false;
             Corpse corpse = null;
             Egg egg = null;
+
             List<Item> item = thisLocation.getItems();
             for(int i =0;i<item.size();i++){
                 if(item.get(i) instanceof Corpse){
@@ -58,11 +60,12 @@ public class Allosaur extends Dinosaur {
                     corpseExist = true;
                 }else if(item.get(i) instanceof  Egg){
                     egg = (Egg) item.get(i);
+                    eggExist = true;
                 }
             }
             if(corpseExist){ //if it is a corpse
                 if (corpse instanceof AllosaurCorpse || corpse instanceof StegosaurCorpse){
-                    System.out.println("Allosaur found a corpse and ate it. Heal 50");
+                    System.out.println("Allosaur found a corpse and ate it. Heal 50hp");
                     if(this.getMaxHitPoints() > (this.getHitPoints() + 50)){
                     this.heal(50);
                     }else{
@@ -75,8 +78,8 @@ public class Allosaur extends Dinosaur {
                     this.heal(heal);
                     thisLocation.removeItem(corpse);
                 }
-            }else if(thisLocation.getItems() instanceof Egg){
-                System.out.println("Allosaur found an egg and ate it. Heal 10hp");
+            }else if(eggExist){
+                System.out.println("Allosaur at (" + x + ", " + y + ") found an egg and ate it. Heal 10hp");
                 this.heal(10);
                 thisLocation.removeItem(egg);
             }else if(top instanceof Stegosaur|| bottom instanceof Stegosaur
@@ -169,6 +172,7 @@ public class Allosaur extends Dinosaur {
             if(hitPoints>50 && hitPoints < 70 && !hasCapability(AgeGroup.Baby)){
                 int breed = r.nextInt(100)+1;
                 if(breed < 70 && !this.getBreedingState()) {
+                    System.out.println("Allosaur at (" + x + ", " + y + ") wants to breed.");
                     this.setBreedingState(true);
                     wander = new Following(false, true, false, false).getAction(this, map);
                 }
