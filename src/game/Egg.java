@@ -53,7 +53,6 @@ public class Egg  extends Item {
             gender="female";
         }
 
-
         if (hasCapability(eggOf.Stegosaur)&& eggAge==30){
             if (currentLocation.getActor()==null) {
                 creatingBabyDinosaur(player, 100, currentLocation, new Stegosaur("Stegosaur", gender));
@@ -92,6 +91,7 @@ public class Egg  extends Item {
      * @param dinosaur
      */
     private void creatingBabyDinosaur(Player player,int points,Location currentLocation,Dinosaur dinosaur){
+            System.out.println("Egg hatches at ("+currentLocation.x()+","+currentLocation.y()+")");
 
             player.incrementPoints(points);
             currentLocation.removeItem(this);
