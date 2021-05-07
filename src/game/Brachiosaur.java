@@ -37,6 +37,7 @@ public class Brachiosaur extends Dinosaur {
                 for (Fruit fruits:tree.getFruits()) {
                     if (!(fruits.hasCapability(FruitStatus.DROPPED)) && fruits.getPortable()) {
                         thisLocation.removeItem(fruits);
+                        System.out.println("Brachiosaur at (" + thisLocation.x() + ", " +thisLocation.y() + ") eats fruit on tree. Heal 5hp.");
                         tree.remove(fruits);
                         this.heal(5);
                     }
@@ -45,6 +46,7 @@ public class Brachiosaur extends Dinosaur {
             }
             else if(thisLocation.getGround() instanceof Bush){
                 if(r.nextInt(100)+1>50){
+                    System.out.println("Bush at (" + thisLocation.x() + ", " +thisLocation.y() + ") is destroyed by Brachiosaur");
                     thisLocation.setGround(new Dirt());
                 }
 
@@ -59,7 +61,8 @@ public class Brachiosaur extends Dinosaur {
                                 if (actor instanceof Brachiosaur && ((Brachiosaur) actor).getGender().contentEquals("male")) {
                                     setPregnantCount(0);
                                     addCapability(BreedingState.Pregnant);
-                                    this.setBreedingState(false); //back to false after success breeding
+                                    System.out.println("Brachiosaur at (" + thisLocation.x() + ", " +thisLocation.y() + ") is pregnant");
+                                    ((Brachiosaur)actor).setBreedingState(false); //back to false after success breeding
                                     break;
                                 }
 
@@ -69,6 +72,7 @@ public class Brachiosaur extends Dinosaur {
                         incrementPregnantCount();
                         if (getPregnantCount() == 30) {
                             BrachiosaurEgg egg = new BrachiosaurEgg("egg", '0', false);
+                            System.out.println("Brachiosaur at (" + thisLocation.x() + ", " +thisLocation.y() + ") lay an egg.");
                             egg.addCapability(eggOf.Brachiosaur);
                             thisLocation.addItem(egg);
                             removeCapability(BreedingState.Pregnant);
@@ -80,6 +84,7 @@ public class Brachiosaur extends Dinosaur {
             else {
                 setBabyAge(getBabyAge() + 1);
                 if (getBabyAge() == 50) {
+                    System.out.println("Baby brachiosaur at (" + thisLocation.x() + ", " +thisLocation.y() + ") grows into an adult");
                     removeCapability(AgeGroup.Baby);
                     setHitPoints(100);
                 }
@@ -108,6 +113,7 @@ public class Brachiosaur extends Dinosaur {
         else{
             incrementUnconsciousTurns();
             if(getUnconsciousTurns()==15){
+                System.out.println("Brachiosaur at (" + thisLocation.x() + ", " +thisLocation.y() + ") is dead.");
                 map.removeActor(this);
                 thisLocation.addItem(new StegosaurCorpse("Brachiosaur",'?'));
             }

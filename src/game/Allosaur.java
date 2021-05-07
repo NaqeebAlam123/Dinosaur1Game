@@ -94,7 +94,7 @@ public class Allosaur extends Dinosaur {
                     }
                     if (hasCapability(AgeGroup.Baby)){ // Its a baby
                         if(!stegosaur.getHurt()){ // If stegosaur is not hurt
-                            System.out.println("Baby Allosaur at ("+ thisLocation.x() + ", " + thisLocation.y() + ") attacks Stegosaur. Heal 10hp");
+                            System.out.println("Baby Allosaur at ("+ x + ", " + y + ") attacks Stegosaur. Heal 10hp");
                             this.heal(10);
                             stegosaur.hurt(10); //attack stegosaur
                             stegosaur.setHurt(true);
@@ -135,9 +135,10 @@ public class Allosaur extends Dinosaur {
                             if (destination.containsAnActor()) {
                                 Actor actor = destination.getActor();
                                 if (actor instanceof Allosaur && ((Allosaur) actor).getGender().contentEquals("male")) {
+                                    System.out.println("Allosaur at (" + x + ", " + y + ") is pregnant.");
                                     setPregnantCount(0);
                                     addCapability(BreedingState.Pregnant);
-                                    this.setBreedingState(false); //back to false after success breeding
+                                    ((Allosaur)actor).setBreedingState(false); //back to false after success breeding
                                     break;
                                 }
 
@@ -146,6 +147,7 @@ public class Allosaur extends Dinosaur {
                     } else {
                         incrementPregnantCount();
                         if (getPregnantCount() == 20) {
+                            System.out.println("Allosaur at (" + x + ", " + y + ") lays an egg.");
                             AllosaurEgg EGG = new AllosaurEgg("egg", '0', false);
                             EGG.addCapability(eggOf.Allosaur);
                             thisLocation.addItem(EGG);
@@ -158,6 +160,7 @@ public class Allosaur extends Dinosaur {
             else{
                 setBabyAge(getBabyAge()+1);
                 if (getBabyAge()==50){
+                    System.out.println("Baby Allosaur at (" + x + ", " + y + ") grows into an adult.");
                     removeCapability(AgeGroup.Baby);
                     setHitPoints(50);
                 }
@@ -192,6 +195,7 @@ public class Allosaur extends Dinosaur {
         else{
             incrementUnconsciousTurns();;
             if(getUnconsciousTurns()==20){
+                System.out.println("Allosaur at (" + thisLocation.x() + ", " +thisLocation.y() + ") is dead");
                 map.removeActor(this);
                 thisLocation.addItem(new AllosaurCorpse("Allosaur",'?'));
             }

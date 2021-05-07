@@ -94,6 +94,7 @@ public class Stegosaur extends Dinosaur {
 					if (fruits.hasCapability(FruitStatus.DROPPED)) {
 						thisLocation.removeItem(fruits);
 						foodSource.remove(fruits);
+						System.out.println("Stegosaur at (" + thisLocation.x() + ", " +thisLocation.y() + ") eats fruits and heal 10hp");
 						this.heal(10);
 						break;
 					}
@@ -109,8 +110,9 @@ public class Stegosaur extends Dinosaur {
 								Actor actor = destination.getActor();
 								if (actor instanceof Stegosaur && ((Stegosaur) actor).getGender().contentEquals("male")) {
 									setPregnantCount(0);
+									System.out.println("Stegosaur at (" + thisLocation.x() + ", " +thisLocation.y() + ") is pregnant");
 									addCapability(BreedingState.Pregnant);
-									this.setBreedingState(false); //back to false after success breeding
+									((Stegosaur)actor).setBreedingState(false); //back to false after success breeding
 									break;
 								}
 
@@ -119,6 +121,7 @@ public class Stegosaur extends Dinosaur {
 					} else {
 						incrementPregnantCount();
 						if (getPregnantCount() == 10) {
+							System.out.println("Stegosaur at (" + thisLocation.x() + ", " +thisLocation.y() + ") lay an egg.");
 							StegosaurEgg egg = new StegosaurEgg("egg", '0', false);
 							egg.addCapability(eggOf.Stegosaur);
 							thisLocation.addItem(egg);
@@ -131,6 +134,7 @@ public class Stegosaur extends Dinosaur {
 			else{
 				setBabyAge(getBabyAge()+1);
 				if (getBabyAge()==30){
+					System.out.println("Baby stegosaur at (" + thisLocation.x() + ", " +thisLocation.y() + ") grows into an adult.");
 					removeCapability(AgeGroup.Baby);
 					setHitPoints(50);
 				}
@@ -159,6 +163,7 @@ public class Stegosaur extends Dinosaur {
 		else{
 			incrementUnconsciousTurns();;
 			if(getUnconsciousTurns()==20){
+				System.out.println("Stegosaur at (" + thisLocation.x() + ", " +thisLocation.y() + ") is dead.");
 				map.removeActor(this);
 				thisLocation.addItem(new StegosaurCorpse("Stegosaur",'?'));
 			}
