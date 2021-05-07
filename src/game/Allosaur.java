@@ -7,8 +7,17 @@ import java.util.Random;
 
 /**
  * A carnivorous Dinosaur - Allosaur
- * @Author Cheng Zi Ming
+ * @author Cheng Zi Ming
  * @see Dinosaur
+ * @see Stegosaur
+ * @see Brachiosaur
+ * @see StegosaurCorpse
+ * @see BrachiosaurCorpse
+ * @see AllosaurCorpse
+ * @see Following
+ * @see BreedingState
+ * @see AgeGroup
+ * @see Location
  * @version 1.0.0
  */
 public class Allosaur extends Dinosaur {

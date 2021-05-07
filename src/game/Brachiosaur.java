@@ -4,6 +4,20 @@ import edu.monash.fit2099.engine.*;
 
 import java.util.Random;
 
+/** a herbivore dinosaur
+ * @author Muhammad Naqeeb Alam
+ * @see Dinosaur
+ * @see Bush
+ * @see Tree
+ * @see Following
+ * @see Location
+ * @see AgeGroup
+ * @see BreedingState
+ * @see BrachiosaurCorpse
+ * @version 1.0.0
+ *
+ */
+
 public class Brachiosaur extends Dinosaur {
 
 

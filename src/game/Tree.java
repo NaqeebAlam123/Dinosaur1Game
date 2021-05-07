@@ -9,8 +9,13 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
+ * Foodsource for dinosaurs extending the FoodSource class
  * @author Muhammad Naqeeb Alam
- * @see Fruit,Ground,Util,Location
+ * @see Fruit
+ * @see Ground
+ * @see Util
+ * @see Location
+ * @see FoodSource
  * @version 1.0.0
  */
 public class Tree extends FoodSource {

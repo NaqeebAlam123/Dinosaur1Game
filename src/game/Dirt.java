@@ -8,9 +8,15 @@ import java.util.Random;
 
 
 /**
- * @author Muhammad Naqeeb Alam
- * @see Tree,Ground,Location,edu.monash.fit2099.engine.Exit,Bush
  * A class that represents bare dirt.
+ * @author Muhammad Naqeeb Alam
+ * @see Tree
+ * @see Ground
+ * @see Location
+ * @see edu.monash.fit2099.engine.Exit
+ * @see Bush
+ * @version 1.0.0
+
  */
 public class Dirt extends Ground {
 

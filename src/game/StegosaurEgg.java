@@ -1,8 +1,15 @@
 package game;
 
+import edu.monash.fit2099.engine.Item;
+
 /**
+ * Stegosaur egg class extending Egg class
  * @author Muhammad Naqeeb Alam
  * @see Egg
+ * @see Item
+ * @see VendingMachine
+ * @see PickupFromVendingMachine
+ * @see Stegosaur
  * @version 1.0.0
  */
 public class StegosaurEgg extends Egg{

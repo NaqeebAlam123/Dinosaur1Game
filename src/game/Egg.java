@@ -7,6 +7,7 @@ import edu.monash.fit2099.engine.Location;
 import java.util.Random;
 
 /**
+ * Egg super class used by dinosaur of different types
  * @author Muhammad Naqeeb Alam
  * @version 1.0.0
  * @see Item
@@ -54,14 +55,29 @@ public class Egg  extends Item {
 
 
         if (hasCapability(eggOf.Stegosaur)&& eggAge==30){
-              creatingBabyDinosaur(player,100,currentLocation,new Stegosaur("Stegosaur",gender));
+            if (currentLocation.getActor()==null) {
+                creatingBabyDinosaur(player, 100, currentLocation, new Stegosaur("Stegosaur", gender));
+            }
+            else{
+                eggAge=eggAge-1;
+            }
 
         }
         else if (hasCapability(eggOf.Brachiosaur)&& eggAge==10){
-              creatingBabyDinosaur(player,1000,currentLocation,new Brachiosaur("Brachiosaur",gender));
+            if (currentLocation.getActor()==null) {
+                creatingBabyDinosaur(player, 1000, currentLocation, new Brachiosaur("Brachiosaur", gender));
+            }
+            else{
+                eggAge=eggAge-1;
+            }
         }
         else if (hasCapability(eggOf.Allosaur)&& eggAge==50){
-              creatingBabyDinosaur(player,1000,currentLocation,new Allosaur("Brachiosaur",gender));
+            if (currentLocation.getActor()==null) {
+                creatingBabyDinosaur(player, 1000, currentLocation, new Allosaur("Brachiosaur", gender));
+            }
+            else {
+                eggAge=eggAge-1;
+            }
         }
 
 

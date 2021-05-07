@@ -3,11 +3,14 @@ package game;
 import edu.monash.fit2099.engine.*;
 
 /**
+ * Class representing the Player.
  * @author Muhammad Naqeeb Alam
  * @see Tree
  * @see Bush
  * @see Fruit
- * Class representing the Player.
+ * @see Actor
+ * @version 1.0.9
+
  */
 public class Player extends Actor {
 
@@ -41,15 +44,10 @@ public class Player extends Actor {
 	 * Deduct eco points
 	 * @param points
 	 */
-	public boolean deductPoints(int points){
-		boolean deduct = false;
-		if ((ecoPoints - points) >= 0){
-			ecoPoints -= points;
-			deduct = true;
-		}else{
-			System.out.println("Insufficient Eco-points");
-		}
-		return deduct;
+	public void deductPoints(int points){
+		int min=0;
+		int change=ecoPoints-points;
+		ecoPoints=Math.max(min,change);
 	}
 	/**
 	 * get eco points

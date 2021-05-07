@@ -3,9 +3,14 @@ package game;
 import edu.monash.fit2099.engine.*;
 
 /**
+ * A class that is used by Player class to harvest fruits from trees and bushes
  * @author Muhammad Naqeeb Alam
  * @version 1.0.0
- * @see Action,Fruit
+ * @see Action
+ * @see Fruit
+ * @see Tree
+ * @see Bush
+ * @see Player
  */
 public class HarvestingFruits extends Action {
     /**

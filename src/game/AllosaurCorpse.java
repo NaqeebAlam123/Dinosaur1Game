@@ -1,5 +1,12 @@
 package game;
 
+/**
+ * corpse for Allosaur
+ * @author Cheng Zi Ming
+ * @see Corpse
+ * @see Allosaur
+ * @version 1.0.0
+ */
 public class AllosaurCorpse extends Corpse{
     private int duration = 20;
     public AllosaurCorpse(String name, char displayChar){

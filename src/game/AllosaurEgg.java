@@ -1,5 +1,15 @@
 package game;
 
+/**
+ * Allosaur Egg class extending Egg class
+ *@author Cheng Zi Ming
+ * @see Egg
+ * @see Allosaur
+ * @see edu.monash.fit2099.engine.Item
+ * @see VendingMachine
+ * @see PickupFromVendingMachine
+ * @version 1.0.0
+ */
 public class AllosaurEgg extends Egg{
 
         /**

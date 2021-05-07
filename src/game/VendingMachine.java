@@ -6,6 +6,7 @@ import edu.monash.fit2099.engine.Ground;
 import edu.monash.fit2099.engine.Location;
 
 /**
+ * Class that encompasses all the items that Vending machine can hold
  * @author Muhammad Naqeeb Alam
  * @see Fruit
  * @see vegetarianMealKit
@@ -14,6 +15,8 @@ import edu.monash.fit2099.engine.Location;
  * @see StegosaurEgg
  * @see BrachiosaurEgg
  * @see AllosaurEgg
+ * @see Player
+ * @see PickupFromVendingMachine
  * @version 1.0.0
  */
 public class VendingMachine extends Ground {

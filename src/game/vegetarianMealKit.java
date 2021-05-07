@@ -2,8 +2,11 @@ package game;
 
 import edu.monash.fit2099.engine.Item;
 /**
+ * An item that can be fed to herbivore dinosaurs which will heal them up fully
  * @author Muhammad Naqeeb Alam
  * @see Item
+ * @see VendingMachine
+ * @see PickupFromVendingMachine
  * @version 1.0.0
  */
 public class vegetarianMealKit extends Item {

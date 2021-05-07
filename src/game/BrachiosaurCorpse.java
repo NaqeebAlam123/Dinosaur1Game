@@ -1,4 +1,11 @@
 package game;
+/**
+ * corpse for brachiosaur
+ * @author Cheng Zi Ming
+ * @see Corpse
+ * @see Brachiosaur
+ * @version 1.0.0
+ */
 
 public class BrachiosaurCorpse extends Corpse{
     private int duration = 40;

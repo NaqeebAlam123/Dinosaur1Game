@@ -6,6 +6,7 @@ import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.PickUpItemAction;
 
 /**
+ * It allows the Player to add items from the Vending Machine to their inventory
  * @author Muhammad Naqeeb Alam
  * @see Fruit
  * @see Player
@@ -14,6 +15,7 @@ import edu.monash.fit2099.engine.PickUpItemAction;
  * @see Laser
  * @see StegosaurEgg
  * @see BrachiosaurEgg
+ * @see VendingMachine
  * @see PickUpItemAction
  * @version 1.0.0
  */

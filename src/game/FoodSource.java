@@ -5,8 +5,11 @@ import edu.monash.fit2099.engine.Ground;
 import java.util.ArrayList;
 
 /**
+ * a super class for Tree and Bush class
  * @author Muhammad Naqeeb Alam
  * @see Ground
+ * @see Fruit
+ * @version 1.0.0
  */
 public class FoodSource extends Ground {
     public FoodSource(Character displayChar){

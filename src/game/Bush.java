@@ -7,8 +7,11 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
+ * FoodSource for herbivore dinsaurs
  * @author Muhammad Naqeeb Alam
- * @see Ground,Fruit,Location
+ * @see Ground
+ * @see Fruit
+ * @see Location
  * @version 1.0.0
  */
 public class Bush extends FoodSource {

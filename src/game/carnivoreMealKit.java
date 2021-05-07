@@ -3,8 +3,11 @@ package game;
 import edu.monash.fit2099.engine.Item;
 
 /**
+ * kit for healing a carnivore dinosaur fully
  * @author Muhammad Naqeeb Alam
  * @see Item
+ * @see VendingMachine
+ * @see PickupFromVendingMachine
  * @version 1.0.0
  */
 public class carnivoreMealKit extends Item {

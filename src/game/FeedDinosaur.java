@@ -6,8 +6,12 @@ import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Item;
 
 /**
+ * Class for feeding dinosaur
  * @author Muhammad Naqeeb Alam
- * @see Dinosaur
+ * @see Stegosaur
+ * @see Brachiosaur
+ * @see Allosaur
+ * @see Actor
  * @see Fruit
  * @see vegetarianMealKit
  * @see carnivoreMealKit

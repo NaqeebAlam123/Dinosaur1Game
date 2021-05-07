@@ -5,6 +5,7 @@ import edu.monash.fit2099.engine.*;
 import java.util.ArrayList;
 
 /**
+ * Class that allows to manipulate dinosaur movements
  * @author Muhammad Naqeeb Alam
  * @see Behaviour
  * @see Actor
@@ -30,7 +31,7 @@ public class Following implements Behaviour {
      */
     private boolean toAttack;
     /**
-     * Intiallises boolean values indicating whether dinsosaur wants to move dinosaur or foodSource
+     * Intiallises boolean values indicating whether dinsosaur wants to move towards dinosaur ( to attack or mate) or foodSource(which can be corpse or Bush or Tree)
      * @param toBushTrees
      * @param toDinosaur
      */

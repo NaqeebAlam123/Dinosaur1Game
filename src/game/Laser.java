@@ -1,10 +1,15 @@
 package game;
 
+import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.WeaponItem;
 
 /**
+ * It is used by Player to kill dinosaurs
  * @author Muhammad Naqeeb Alam
  * @see WeaponItem
+ * @see Item
+ * @see VendingMachine
+ * @see PickupFromVendingMachine
  * @version 1.0.0
  */
 public class Laser extends WeaponItem {

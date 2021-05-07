@@ -9,6 +9,13 @@ import java.util.Random;
  * A herbivorous dinosaur.
  * @author Muhammad Naqeeb Alam
  * @see Dinosaur
+ * @see Bush
+ * @see Tree
+ * @see Following
+ * @see Location
+ * @see AgeGroup
+ * @see BreedingState
+ * @see StegosaurCorpse
  * @version 1.0.0
  */
 public class Stegosaur extends Dinosaur {

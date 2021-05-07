@@ -1,5 +1,11 @@
 package game;
-
+/**
+ * corpse for Stegosaurus
+ * @author Cheng Zi Ming
+ * @see Corpse
+ * @see Stegosaur
+ * @version 1.0.0
+ */
 public class StegosaurCorpse extends Corpse {
     private int duration = 20;
     public StegosaurCorpse(String name, char displayCharacter){

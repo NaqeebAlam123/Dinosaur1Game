@@ -1,6 +1,12 @@
 package game;
 import edu.monash.fit2099.engine.Item;
 
+/**
+ * Abstract class for implementing methods like getting time that corpse has been on ground and within every turn decrease it
+ * @author Cheng Zi Ming
+ * @see  Item
+ * @version 1.0.0
+ */
 public abstract class Corpse extends Item{
 
     public Corpse(String name, char displayCharacter, boolean b){

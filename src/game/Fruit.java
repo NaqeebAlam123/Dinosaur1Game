@@ -5,9 +5,14 @@ import edu.monash.fit2099.engine.*;
 import java.util.List;
 
 /**
+ * This class is used by Bush and tree
  * @author Muhammad Naqeeb Alam
  * @version 1.0.0
- * @see Item,VendingMachine,Tree,Bush
+ * @see Item
+ * @see VendingMachine
+ * @see PickupFromVendingMachine
+ * @see Bush
+ * @see Tree
  */
 public class Fruit extends Item {
     /**
