@@ -54,12 +54,12 @@ public class Allosaur extends Dinosaur {
             Egg egg = null;
 
             List<Item> item = thisLocation.getItems();
-            for(int i =0;i<item.size();i++){
-                if(item.get(i) instanceof Corpse){
-                    corpse = (Corpse) item.get(i);
+            for (Item value : item) {
+                if (value instanceof Corpse) {
+                    corpse = (Corpse) value;
                     corpseExist = true;
-                }else if(item.get(i) instanceof  Egg){
-                    egg = (Egg) item.get(i);
+                } else if (value instanceof Egg) {
+                    egg = (Egg) value;
                     eggExist = true;
                 }
             }
@@ -197,7 +197,7 @@ public class Allosaur extends Dinosaur {
             }
         }
         else{
-            incrementUnconsciousTurns();;
+            incrementUnconsciousTurns();
             if(getUnconsciousTurns()==20){
                 System.out.println("Allosaur at (" + thisLocation.x() + ", " +thisLocation.y() + ") is dead");
                 map.removeActor(this);
