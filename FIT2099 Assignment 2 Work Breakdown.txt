@@ -1,0 +1,32 @@
+﻿FIT2099 Assignment 2 Work Breakdown Agreement
+
+
+
+
+Design
+  
+1. UML Diagram updated by Muhammad Naqeeb Alam
+2. Design Rationale updated by Cheng Zi Ming and Muhammad Naqeeb Alam
+3. All Sequence Diagrams updated by Cheng Zi Ming
+
+
+Implementation
+        1.Stegosaur,Brachiosaur,Following,FeedDinosaur,eggOf,BreedingState,AgeGroup,Egg,StegosaurEgg,BrachiosaurEgg,Fruit,Bush,Tree,Player,HarvestingFruits,VendingMachine ,vegetarian meal Kit,carnivore meal kit,Laser,FoodSource,Util,Dinosaur and PickUpFromVendingMachine class created by Muhammad Naqeeb Alam
+
+
+2.Allosaur,Corpse,StegosaurCorpse,BrachiosaurCorpse and AllosaurCorpse created by Cheng Zi Ming
+ 
+3.Design principles applied by Cheng Zi Ming to modify classes
+
+
+4.Errors correction done by Muhammad Naqeeb Alam and Cheng Zi Ming
+
+
+5.JavaDocs added by Cheng Zi Ming
+
+
+6.Testing done by Cheng Zi Ming and Muhammad Naqeeb Alam
+
+
+
+This work breakdown agreement is accepted by Muhammad Naqeeb Alam
