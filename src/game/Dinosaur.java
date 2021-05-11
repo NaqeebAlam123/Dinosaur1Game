@@ -46,6 +46,40 @@ public abstract class Dinosaur extends Actor {
     private boolean breedingState=false;
 
     /**
+     * The water level of dinosaurs
+     */
+    private int waterLevel = 60;
+
+    /**
+     * Maximum water level of a dinosaur
+     */
+    private int maxWaterLevel;
+
+    /**
+     *  Set the dinosaur water level
+     * @param waterLevel
+     */
+    public void setWaterLevel(int waterLevel){
+        this.waterLevel = waterLevel;
+    }
+
+    /**
+     * get water level
+     * @return water level
+     */
+    public int getWaterLevel(){
+        return waterLevel;
+    }
+
+    public void addWaterLevel(int waterLevel){
+        this.waterLevel += waterLevel;
+    }
+
+    public void thirsty(){
+        waterLevel -= 1;
+    }
+
+    /**
      * Gets age of baby
      * @return
      */
@@ -214,16 +248,20 @@ public abstract class Dinosaur extends Actor {
      * @param name
      * @param displayChar
      * @param hitPoints
+     * @param maxWaterLevel
      * @param gender
      */
-    public Dinosaur(String name, char displayChar, int hitPoints,String gender) {
+    public Dinosaur(String name, char displayChar, int hitPoints, int maxWaterLevel,String gender) {
         super(name, displayChar, hitPoints);
         this.gender=gender;
-        if (gender.contentEquals("male")){
+        if (gender.contentEquals("female")){
             target="female";
         }
         else{
             target="male";
+        }
+        if (maxWaterLevel > 0){
+            this.maxWaterLevel = maxWaterLevel;
         }
 
         behaviour = new WanderBehaviour();;
