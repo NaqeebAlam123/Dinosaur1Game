@@ -23,12 +23,13 @@ public class Brachiosaur extends Dinosaur {
 
     /**
      * Constructor.
-     * All Stegosaurs are represented by a 'd' and have 100 hit points.
+     * All Brachioosaurs are represented by a 'e' and have 160 hit points.
      *
-     * @param name the name of this Stegosaur
+     * @param name the name of this Brachiosaur
      */
     public Brachiosaur(String name,String gender) {
-        super(name, 'e', 160,gender);
+        super(name, 'e', 160, 200,gender);
+        setWaterLevel(60);
         hitPoints=100;
 
     }
@@ -43,9 +44,39 @@ public class Brachiosaur extends Dinosaur {
         Random r=new Random();
         Location thisLocation=map.locationOf(this);
         Action wander = null;
+        boolean drink = false;
+        Lake lake = null;
+        int x = thisLocation.x();
+        int y = thisLocation.y();
+        Ground left = null;
+        Ground down = null;
+        Ground right = map.at(x + 1, y).getGround();
+        if(x> 1){
+            left = map.at(x - 1, y).getGround();}
 
+        Ground up = map.at(x , y + 1).getGround();
+        if(y>1){
+            down = map.at(x, y - 1).getGround();}
 
-        if(isConscious()){
+        if(isConscious() && getWaterLevel() > 0){
+            if(up instanceof Lake){
+                drink = true;
+                lake = (Lake) up;
+            }else if(down instanceof Lake){
+                drink = true;
+                lake = (Lake) down;
+            }else if(left instanceof Lake){
+                drink = true;
+                lake = (Lake) left;
+            }else if(right instanceof Lake){
+                drink = true;
+                lake = (Lake) right;
+            }
+
+            if(drink){
+                addWaterLevel(30);
+                lake.decNumberOfSips();
+            }
             if (thisLocation.getGround() instanceof Tree){
                 Tree tree=(Tree)thisLocation.getGround();
                 for (Fruit fruits:tree.getFruits()) {
@@ -116,11 +147,19 @@ public class Brachiosaur extends Dinosaur {
             else if(hitPoints<140){
                 System.out.println(this.name+" at ("+thisLocation.x()+","+thisLocation.y()+") is getting hungry!");
                 wander=new Following(true,false,false,false).getAction(this,map);
+            }else if(getWaterLevel()<50){
+
+                System.out.println(this.name+" at ("+thisLocation.x()+","+thisLocation.y()+") is getting thirsty!");
+                //STUDS: move towards water
             }
             else{
                 wander=getBehaviour().getAction(this,map);
             }
+
+            // decrease food level and water level
             hurt(1);
+            thirsty();
+
             if (wander!=null){
                 return wander;
             }

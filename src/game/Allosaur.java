@@ -31,8 +31,8 @@ public class Allosaur extends Dinosaur {
          * @param name the name of this Allosaur
          */
         public Allosaur(String name,String gender) {
-            super(name, 'A', 100, gender);
-
+            super(name, 'A', 100, 100, gender);
+            setWaterLevel(60);
             hitPoints = 50;
 
         }
@@ -44,9 +44,12 @@ public class Allosaur extends Dinosaur {
     @Override
     public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
         Random r=new Random();
+        boolean drink = false;
+        Lake lake = null;
         Location thisLocation=map.locationOf(this);
         int x = thisLocation.x();
         int y = thisLocation.y();
+
         Actor back = null;
         Actor bottom = null;
         Actor front = map.at(x + 1, y).getActor();
@@ -55,8 +58,20 @@ public class Allosaur extends Dinosaur {
         Actor top = map.at(x , y + 1).getActor();
         if(y>1){
         bottom = map.at(x, y - 1).getActor();}
+
+        Ground left = null;
+        Ground down = null;
+
+        Ground right = map.at(x + 1, y).getGround();
+        if(x> 1){
+            left = map.at(x - 1, y).getGround();}
+
+        Ground up = map.at(x , y + 1).getGround();
+        if(y>1){
+            down = map.at(x, y - 1).getGround();}
         Action wander = null;
-        if(isConscious()){
+
+        if(isConscious() && getWaterLevel() > 0){
             boolean corpseExist = false;
             boolean eggExist = false;
             Corpse corpse = null;
@@ -72,6 +87,26 @@ public class Allosaur extends Dinosaur {
                     eggExist = true;
                 }
             }
+
+            if(up instanceof Lake){
+                drink = true;
+                lake = (Lake) up;
+            }else if(down instanceof Lake){
+                drink = true;
+                lake = (Lake) down;
+            }else if(left instanceof Lake){
+                drink = true;
+                lake = (Lake) left;
+            }else if(right instanceof Lake){
+                drink = true;
+                lake = (Lake) right;
+            }
+
+            if(drink){
+                addWaterLevel(30);
+                lake.decNumberOfSips();
+            }
+
             if(corpseExist){ //if it is a corpse
                 if (corpse instanceof AllosaurCorpse || corpse instanceof StegosaurCorpse){
                     System.out.println("Allosaur found a corpse and ate it. Heal 50hp");
@@ -196,11 +231,19 @@ public class Allosaur extends Dinosaur {
                     // Not so hungry
                     wander=new Following(false,false,false,true).getAction(this,map);
                 }
+            }else if(getWaterLevel()<50){
+
+                System.out.println(this.name+" at ("+thisLocation.x()+","+thisLocation.y()+") is getting thirsty!");
+                //STUDS: move towards water
             }
             else{
                 wander=getBehaviour().getAction(this,map);
             }
+
+            //decrease water level and food level by 1
+            thirsty();
             hurt(1);
+
             if (wander!=null){
                 return wander;
             }

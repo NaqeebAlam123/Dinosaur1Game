@@ -30,8 +30,8 @@ public class Stegosaur extends Dinosaur {
 	 * @param name the name of this Stegosaur
 	 */
 	public Stegosaur(String name,String gender) {
-		super(name, 'd', 100, gender);
-
+		super(name, 'd', 100, 100, gender);
+		setWaterLevel(60);
 		hitPoints = 50;
 
 	}
@@ -70,7 +70,6 @@ public class Stegosaur extends Dinosaur {
 	}
 
 
-
 	/**
 	 *it handles the actions made by Stegosaur at each turn
 	 * @see edu.monash.fit2099.engine.Actor#playTurn(Actions, Action, GameMap, Display)
@@ -80,7 +79,39 @@ public class Stegosaur extends Dinosaur {
 		Location thisLocation=map.locationOf(this);
 		FoodSource foodSource=null;
 		Action wander = null;
-		if(isConscious()){
+		boolean drink = false;
+		Lake lake = null;
+		int x = thisLocation.x();
+		int y = thisLocation.y();
+		Ground left = null;
+		Ground down = null;
+		Ground right = map.at(x + 1, y).getGround();
+		if(x> 1){
+			left = map.at(x - 1, y).getGround();}
+
+		Ground up = map.at(x , y + 1).getGround();
+		if(y>1){
+			down = map.at(x, y - 1).getGround();}
+		if(isConscious() && getWaterLevel() > 0){
+
+			if(up instanceof Lake){
+				drink = true;
+				lake = (Lake) up;
+			}else if(down instanceof Lake){
+				drink = true;
+				lake = (Lake) down;
+			}else if(left instanceof Lake){
+				drink = true;
+				lake = (Lake) left;
+			}else if(right instanceof Lake){
+				drink = true;
+				lake = (Lake) right;
+			}
+
+			if(drink){
+				addWaterLevel(30);
+				lake.decNumberOfSips();
+			}
 			if(thisLocation.getGround() instanceof Tree){
 				foodSource=(Tree)thisLocation.getGround();
 
@@ -159,10 +190,17 @@ public class Stegosaur extends Dinosaur {
 			else if(hitPoints<90){
 				System.out.println(this.name+" at ("+thisLocation.x()+","+thisLocation.y()+") is getting hungry!");
 				wander=new Following(true,false,false,false).getAction(this,map);
+			}else if(getWaterLevel()<50){
+
+				System.out.println(this.name+" at ("+thisLocation.x()+","+thisLocation.y()+") is getting thirsty!");
+				//STUDS: move towards water
 			}
 			else{
 				wander=getBehaviour().getAction(this,map);
 			}
+
+			// decrease food level and water level
+			thirsty();
 			hurt(1);
 			if (wander!=null){
 				return wander;
