@@ -121,6 +121,13 @@ public class Allosaur extends Dinosaur {
                     System.out.println("Allosaur found a Brachiosaur corpse and ate it. Heal to full hp");
                     this.heal(heal);
                     thisLocation.removeItem(corpse);
+                }else if (corpse instanceof PterodactylsCorpse){
+                    System.out.println("Allosaur found a Pterodactyls corpse and ate it. Heal 50hp");
+                    if(this.getMaxHitPoints() > (this.getHitPoints() + 30)){
+                        this.heal(30);
+                    }else{
+                        this.setHitPoints(this.getMaxHitPoints());
+                    }
                 }
             }else if(eggExist){
                 System.out.println("Allosaur at (" + x + ", " + y + ") found an egg and ate it. Heal 10hp");
@@ -173,6 +180,25 @@ public class Allosaur extends Dinosaur {
                         }
                     }
                     }
+            }else if(top instanceof Pterodactyls|| bottom instanceof Pterodactyls
+                    || front instanceof Pterodactyls|| back instanceof  Pterodactyls){
+                Pterodactyls pterodactyls = null;
+                if(top instanceof  Pterodactyls){
+                    pterodactyls = (Pterodactyls) top;
+                }else if(bottom instanceof Pterodactyls){
+                    pterodactyls = (Pterodactyls) bottom;
+                }else if(front instanceof Pterodactyls){
+                    pterodactyls = (Pterodactyls) front;
+                }
+                if (back instanceof  Pterodactyls){
+                    pterodactyls = (Pterodactyls) back;
+                }
+                if(!pterodactyls.getFlying()){ // If pterodactyl is not flying
+                    System.out.println("Allosaur  at ( "+ thisLocation.x() + ", " + thisLocation.y() + ") attacks Pterodactyl.");
+                    this.setHitPoints(getMaxHitPoints());
+                    ActorLocations actorLocations = new ActorLocations();
+                    actorLocations.remove(pterodactyls);
+                }
             }
             if(!hasCapability(AgeGroup.Baby)) {
                 if (getGender().contentEquals("female")) {
