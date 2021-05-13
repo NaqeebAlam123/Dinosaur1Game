@@ -1,0 +1,219 @@
+package game;
+
+import edu.monash.fit2099.engine.*;
+
+import java.util.List;
+import java.util.Random;
+
+public class Pterodactyls extends Dinosaur{
+    public Pterodactyls(String name,String gender) {
+        super(name, 'P', 100, 100, gender);
+        setWaterLevel(60);
+        hitPoints = 50;
+    }
+
+    private boolean fly = true;
+    private int flyDuration = 30;
+
+    public void setFlying(boolean fly){
+        this.fly = fly;
+    }
+
+    public boolean getFlying(){
+        return fly;
+    }
+
+    public void setFlyDuration(int flyDuration){
+        this.flyDuration = flyDuration;
+    }
+
+    public int getFlyDuration(){
+        return flyDuration;
+    }
+
+    public void decFlyDuration(){
+        flyDuration -= 1;
+    }
+
+    /**
+     *it handles the actions made by Pterodactyls at each turn
+     * @see edu.monash.fit2099.engine.Actor#playTurn(Actions, Action, GameMap, Display)
+     */
+    @Override
+    public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
+        Random r = new Random();
+        boolean drink = false;
+        Lake lake = null;
+        Location thisLocation = map.locationOf(this);
+        int x = thisLocation.x();
+        int y = thisLocation.y();
+
+        Actor back = null;
+        Actor bottom = null;
+        Actor front = map.at(x + 1, y).getActor();
+        if (x > 1) {
+            back = map.at(x - 1, y).getActor();
+        }
+        Actor top = map.at(x, y + 1).getActor();
+        if (y > 1) {
+            bottom = map.at(x, y - 1).getActor();
+        }
+
+        Ground left = null;
+        Ground down = null;
+
+        Ground right = map.at(x + 1, y).getGround();
+        if (x > 1) {
+            left = map.at(x - 1, y).getGround();
+        }
+
+        Ground up = map.at(x, y + 1).getGround();
+        if (y > 1) {
+            down = map.at(x, y - 1).getGround();
+        }
+        Action wander = null;
+
+        if (isConscious() && getWaterLevel() > 0) {
+            boolean corpseExist = false;
+            Corpse corpse = null;
+
+            List<Item> item = thisLocation.getItems();
+            for (Item value : item) {
+                if (value instanceof Corpse) {
+                    corpse = (Corpse) value;
+                    corpseExist = true;
+                }
+            }
+
+            if (thisLocation.getGround() instanceof Lake){
+                drink = true;
+                lake = (Lake) thisLocation.getGround();
+                int catchFish = 0;
+                int heal = 0;
+                if (lake.getNumberOfFish() > 0){
+                    if (lake.getNumberOfFish() <= 3){
+                        catchFish = r.nextInt(lake.getNumberOfFish());
+                        heal = 5*catchFish;
+
+                    }else{
+                        catchFish = r.nextInt(3);
+                        heal = 5*catchFish;
+                    }
+                    if (this.getMaxHitPoints() > (this.getHitPoints() + heal)) {
+                        this.heal(heal);
+                    } else {
+                        this.setHitPoints(this.getMaxHitPoints());
+                    }
+                }
+            }else if (thisLocation.getGround() instanceof Tree){
+                setFlyDuration(30);
+            }
+
+            if (drink) {
+                addWaterLevel(30);
+                lake.decNumberOfSips();
+            }
+
+            if (corpseExist) { //if it is a corpse
+
+                System.out.println("Allosaur found a corpse and ate it. Heal 10hp");
+                if (this.getMaxHitPoints() > (this.getHitPoints() + 10)) {
+                        this.heal(10);
+                } else {
+                        this.setHitPoints(this.getMaxHitPoints());
+                }
+                if (corpse.getCorpseDuration() <= 0) {
+                    thisLocation.removeItem(corpse);
+                }
+
+            }
+
+            if (getFlyDuration() <= 0){
+                setFlying(false);
+            }
+            }
+            if (!hasCapability(AgeGroup.Baby)) {
+                if (getGender().contentEquals("female")) {
+                    if (!(hasCapability(BreedingState.Pregnant))) {
+                        for (Exit exit : thisLocation.getExits()) {
+                            Location destination = exit.getDestination();
+                            if (destination.containsAnActor()) {
+                                Actor actor = destination.getActor();
+                                if (actor instanceof Allosaur && ((Allosaur) actor).getGender().contentEquals("male") && thisLocation.getGround() instanceof Tree) {
+                                    System.out.println("Pterodactyl at (" + x + ", " + y + ") is pregnant.");
+                                    setPregnantCount(0);
+                                    addCapability(BreedingState.Pregnant);
+                                    ((Allosaur) actor).setBreedingState(false); //back to false after success breeding
+                                    break;
+                                }
+
+                            }
+                        }
+                    } else {
+                        incrementPregnantCount();
+                        if (getPregnantCount() >= 20 && thisLocation.getGround() instanceof Tree) {
+                            System.out.println("Allosaur at (" + x + ", " + y + ") lays an egg.");
+                            AllosaurEgg EGG = new AllosaurEgg("egg", '0', false);
+                            EGG.addCapability(eggOf.Allosaur);
+                            thisLocation.addItem(EGG);
+                            removeCapability(BreedingState.Pregnant);
+
+                        }
+                    }
+                }
+            } else {
+                setBabyAge(getBabyAge() + 1);
+                if (getBabyAge() == 50) {
+                    System.out.println("Baby Allosaur at (" + x + ", " + y + ") grows into an adult.");
+                    removeCapability(AgeGroup.Baby);
+                    setHitPoints(50);
+                }
+            }
+            setUnconsciousTurns(0);
+            if (hitPoints > 50 && hitPoints < 70 && !hasCapability(AgeGroup.Baby)) {
+                int breed = r.nextInt(100) + 1;
+                if (breed < 70 && !this.getBreedingState()) {
+                    System.out.println("Allosaur at (" + x + ", " + y + ") wants to breed.");
+                    this.setBreedingState(true);
+                    wander = new Following(false, true, false, false).getAction(this, map);
+                }
+            } else if (hitPoints < 90) {
+
+                System.out.println(this.name + " at (" + thisLocation.x() + "," + thisLocation.y() + ") is getting hungry!");
+                if (hitPoints < 70) {
+                    // Very Hungry
+                    wander = new Following(false, false, true, false).getAction(this, map);
+                } else {
+                    // Not so hungry
+                    wander = new Following(false, false, false, true).getAction(this, map);
+                }
+            } else if (getWaterLevel() < 50) {
+
+                System.out.println(this.name + " at (" + thisLocation.x() + "," + thisLocation.y() + ") is getting thirsty!");
+                //STUDS: move towards water
+            } else {
+                wander = getBehaviour().getAction(this, map);
+            }
+
+            //decrease water level and food level by 1
+            thirsty();
+            hurt(1);
+            if(getFlyDuration() - 1 > 0) {
+                decFlyDuration();
+            }
+            if (wander != null) {
+                return wander;
+            }
+         else {
+            incrementUnconsciousTurns();
+            if (getUnconsciousTurns() == 20) {
+                System.out.println("Allosaur at (" + thisLocation.x() + ", " + thisLocation.y() + ") is dead");
+                map.removeActor(this);
+                thisLocation.addItem(new AllosaurCorpse("Allosaur", '?'));
+            }
+        }
+
+
+        return new DoNothingAction();
+    }
+}
