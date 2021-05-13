@@ -152,7 +152,7 @@ public class Pterodactyls extends Dinosaur{
                     } else {
                         incrementPregnantCount();
                         if (getPregnantCount() >= 20 && thisLocation.getGround() instanceof Tree) {
-                            System.out.println("Allosaur at (" + x + ", " + y + ") lays an egg.");
+                            System.out.println("Pterodactyl at (" + x + ", " + y + ") lays an egg.");
                             AllosaurEgg EGG = new AllosaurEgg("egg", '0', false);
                             EGG.addCapability(eggOf.Allosaur);
                             thisLocation.addItem(EGG);
@@ -164,7 +164,7 @@ public class Pterodactyls extends Dinosaur{
             } else {
                 setBabyAge(getBabyAge() + 1);
                 if (getBabyAge() == 50) {
-                    System.out.println("Baby Allosaur at (" + x + ", " + y + ") grows into an adult.");
+                    System.out.println("Baby Pterodactyl at (" + x + ", " + y + ") grows into an adult.");
                     removeCapability(AgeGroup.Baby);
                     setHitPoints(50);
                 }
@@ -173,7 +173,7 @@ public class Pterodactyls extends Dinosaur{
             if (hitPoints > 50 && hitPoints < 70 && !hasCapability(AgeGroup.Baby)) {
                 int breed = r.nextInt(100) + 1;
                 if (breed < 70 && !this.getBreedingState()) {
-                    System.out.println("Allosaur at (" + x + ", " + y + ") wants to breed.");
+                    System.out.println("Pterodactyl at (" + x + ", " + y + ") wants to breed.");
                     this.setBreedingState(true);
                     wander = new Following(false, true, false, false).getAction(this, map);
                 }
@@ -207,9 +207,9 @@ public class Pterodactyls extends Dinosaur{
          else {
             incrementUnconsciousTurns();
             if (getUnconsciousTurns() == 20) {
-                System.out.println("Allosaur at (" + thisLocation.x() + ", " + thisLocation.y() + ") is dead");
+                System.out.println("Pterodactyl at (" + thisLocation.x() + ", " + thisLocation.y() + ") is dead");
                 map.removeActor(this);
-                thisLocation.addItem(new AllosaurCorpse("Allosaur", '?'));
+                thisLocation.addItem(new AllosaurCorpse("Pterodactyl", '?'));
             }
         }
 
