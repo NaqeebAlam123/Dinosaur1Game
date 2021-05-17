@@ -48,29 +48,7 @@ public class Pterodactyls extends Dinosaur{
         int x = thisLocation.x();
         int y = thisLocation.y();
 
-        Actor back = null;
-        Actor bottom = null;
-        Actor front = map.at(x + 1, y).getActor();
-        if (x > 1) {
-            back = map.at(x - 1, y).getActor();
-        }
-        Actor top = map.at(x, y + 1).getActor();
-        if (y > 1) {
-            bottom = map.at(x, y - 1).getActor();
-        }
 
-        Ground left = null;
-        Ground down = null;
-
-        Ground right = map.at(x + 1, y).getGround();
-        if (x > 1) {
-            left = map.at(x - 1, y).getGround();
-        }
-
-        Ground up = map.at(x, y + 1).getGround();
-        if (y > 1) {
-            down = map.at(x, y - 1).getGround();
-        }
         Action wander = null;
 
         if (isConscious() && getWaterLevel() > 0) {
@@ -116,7 +94,7 @@ public class Pterodactyls extends Dinosaur{
 
             if (corpseExist) { //if it is a corpse
 
-                System.out.println("Allosaur found a corpse and ate it. Heal 10hp");
+                System.out.println("Pterodactyls found a corpse and ate it. Heal 10hp");
                 if (this.getMaxHitPoints() > (this.getHitPoints() + 10)) {
                         this.heal(10);
                 } else {

@@ -50,25 +50,6 @@ public class Allosaur extends Dinosaur {
         int x = thisLocation.x();
         int y = thisLocation.y();
 
-        Actor back = null;
-        Actor bottom = null;
-        Actor front = map.at(x + 1, y).getActor();
-        if(x> 1){
-        back = map.at(x - 1, y).getActor();}
-        Actor top = map.at(x , y + 1).getActor();
-        if(y>1){
-        bottom = map.at(x, y - 1).getActor();}
-
-        Ground left = null;
-        Ground down = null;
-
-        Ground right = map.at(x + 1, y).getGround();
-        if(x> 1){
-            left = map.at(x - 1, y).getGround();}
-
-        Ground up = map.at(x , y + 1).getGround();
-        if(y>1){
-            down = map.at(x, y - 1).getGround();}
         Action wander = null;
 
         if(isConscious() && getWaterLevel() > 0){
@@ -88,19 +69,15 @@ public class Allosaur extends Dinosaur {
                 }
             }
 
-            if(up instanceof Lake){
-                drink = true;
-                lake = (Lake) up;
-            }else if(down instanceof Lake){
-                drink = true;
-                lake = (Lake) down;
-            }else if(left instanceof Lake){
-                drink = true;
-                lake = (Lake) left;
-            }else if(right instanceof Lake){
-                drink = true;
-                lake = (Lake) right;
+            for (Exit exit : thisLocation.getExits()) {
+                Location destination = exit.getDestination();
+                if (destination.getGround() instanceof Lake) {
+                    lake = (Lake) destination.getGround();
+                    drink = true;
+                    break;
+                }
             }
+
 
             if(drink){
                 addWaterLevel(30);
@@ -133,73 +110,64 @@ public class Allosaur extends Dinosaur {
                 System.out.println("Allosaur at (" + x + ", " + y + ") found an egg and ate it. Heal 10hp");
                 this.heal(10);
                 thisLocation.removeItem(egg);
-            }else if(top instanceof Stegosaur|| bottom instanceof Stegosaur
-                    || front instanceof Stegosaur|| back instanceof  Stegosaur){
-                Stegosaur stegosaur = null;
-                    if(top instanceof  Stegosaur){
-                        stegosaur = (Stegosaur) top;
-                    }else if(bottom instanceof Stegosaur){
-                        stegosaur = (Stegosaur) bottom;
-                }else if(front instanceof Stegosaur){
-                        stegosaur = (Stegosaur) front;
-                    }
-                    if (back instanceof  Stegosaur){
-                        stegosaur = (Stegosaur) back;
-                    }
-                    if (hasCapability(AgeGroup.Baby)){ // Its a baby
-                        if(!stegosaur.getHurt()){ // If stegosaur is not hurt
-                            System.out.println("Baby Allosaur at ("+ x + ", " + y + ") attacks Stegosaur. Heal 10hp");
+            }
+
+            for (Exit exit : thisLocation.getExits()) {
+                Location destination = exit.getDestination();
+                if (destination.getActor() instanceof Stegosaur) {
+                    Stegosaur stegosaur = (Stegosaur) destination.getActor();
+                    if (hasCapability(AgeGroup.Baby)) { // Its a baby
+                        if (!stegosaur.getHurt()) { // If stegosaur is not hurt
+                            System.out.println("Baby Allosaur at (" + x + ", " + y + ") attacks Stegosaur. Heal 10hp");
                             this.heal(10);
                             stegosaur.hurt(10); //attack stegosaur
                             stegosaur.setHurt(true);
-                            if(stegosaur.getHitPoints() <= 0){
-                                if(this.getMaxHitPoints() > (this.getHitPoints() + 50)){
+                            if (stegosaur.getHitPoints() <= 0) {
+                                if (this.getMaxHitPoints() > (this.getHitPoints() + 50)) {
                                     this.heal(50);
-                                }else{
+                                } else {
                                     this.setHitPoints(this.getMaxHitPoints());
                                 }
                                 ActorLocations actorLocations = new ActorLocations();
                                 actorLocations.remove(stegosaur); //remove dead stegosaur
                             }
                         }
-                    }else{
-                    if(!stegosaur.getHurt()){ // If stegosaur is not hurt
-                        System.out.println("Allosaur  at ( "+ thisLocation.x() + ", " + thisLocation.y() + ") attacks Stegosaur. Heals 20hp");
-                        this.heal(20);
-                        stegosaur.hurt(20); //attack stegosaur
-                        stegosaur.setHurt(true);
-                        if(stegosaur.getHitPoints() <= 0){
-                            System.out.println("Stegosaur is dead. Continue to feed on corpse");
-                            if(this.getMaxHitPoints() > (this.getHitPoints() + 50)){
-                                this.heal(50);
-                            }else{
-                                this.setHitPoints(this.getMaxHitPoints());
+                    } else {
+                        if (!stegosaur.getHurt()) { // If stegosaur is not hurt
+                            System.out.println("Allosaur  at ( " + thisLocation.x() + ", " + thisLocation.y() + ") attacks Stegosaur. Heals 20hp");
+                            this.heal(20);
+                            stegosaur.hurt(20); //attack stegosaur
+                            stegosaur.setHurt(true);
+                            if (stegosaur.getHitPoints() <= 0) {
+                                System.out.println("Stegosaur is dead. Continue to feed on corpse");
+                                if (this.getMaxHitPoints() > (this.getHitPoints() + 50)) {
+                                    this.heal(50);
+                                } else {
+                                    this.setHitPoints(this.getMaxHitPoints());
+                                }
+                                ActorLocations actorLocations = new ActorLocations();
+                                actorLocations.remove(stegosaur); //remove dead stegosaur
                             }
-                            ActorLocations actorLocations = new ActorLocations();
-                            actorLocations.remove(stegosaur); //remove dead stegosaur
                         }
                     }
-                    }
-            }else if(top instanceof Pterodactyls|| bottom instanceof Pterodactyls
-                    || front instanceof Pterodactyls|| back instanceof  Pterodactyls){
-                Pterodactyls pterodactyls = null;
-                if(top instanceof  Pterodactyls){
-                    pterodactyls = (Pterodactyls) top;
-                }else if(bottom instanceof Pterodactyls){
-                    pterodactyls = (Pterodactyls) bottom;
-                }else if(front instanceof Pterodactyls){
-                    pterodactyls = (Pterodactyls) front;
-                }
-                if (back instanceof  Pterodactyls){
-                    pterodactyls = (Pterodactyls) back;
-                }
-                if(!pterodactyls.getFlying()){ // If pterodactyl is not flying
-                    System.out.println("Allosaur  at ( "+ thisLocation.x() + ", " + thisLocation.y() + ") attacks Pterodactyl.");
-                    this.setHitPoints(getMaxHitPoints());
-                    ActorLocations actorLocations = new ActorLocations();
-                    actorLocations.remove(pterodactyls);
+                    break;
                 }
             }
+
+
+            for (Exit exit : thisLocation.getExits()) {
+                Location destination = exit.getDestination();
+                if (destination.getActor() instanceof Pterodactyls) {
+                    Pterodactyls pterodactyls = (Pterodactyls) destination.getActor();
+                    if (!pterodactyls.getFlying()) { // If pterodactyl is not flying
+                        System.out.println("Allosaur  at ( " + thisLocation.x() + ", " + thisLocation.y() + ") attacks Pterodactyl.");
+                        this.setHitPoints(getMaxHitPoints());
+                        ActorLocations actorLocations = new ActorLocations();
+                        actorLocations.remove(pterodactyls);
+                    }
+                }
+            }
+
             if(!hasCapability(AgeGroup.Baby)) {
                 if (getGender().contentEquals("female")) {
                     if (!(hasCapability(BreedingState.Pregnant))) {

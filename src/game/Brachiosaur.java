@@ -46,31 +46,15 @@ public class Brachiosaur extends Dinosaur {
         Action wander = null;
         boolean drink = false;
         Lake lake = null;
-        int x = thisLocation.x();
-        int y = thisLocation.y();
-        Ground left = null;
-        Ground down = null;
-        Ground right = map.at(x + 1, y).getGround();
-        if(x> 1){
-            left = map.at(x - 1, y).getGround();}
-
-        Ground up = map.at(x , y + 1).getGround();
-        if(y>1){
-            down = map.at(x, y - 1).getGround();}
 
         if(isConscious() && getWaterLevel() > 0){
-            if(up instanceof Lake){
-                drink = true;
-                lake = (Lake) up;
-            }else if(down instanceof Lake){
-                drink = true;
-                lake = (Lake) down;
-            }else if(left instanceof Lake){
-                drink = true;
-                lake = (Lake) left;
-            }else if(right instanceof Lake){
-                drink = true;
-                lake = (Lake) right;
+            for (Exit exit : thisLocation.getExits()) {
+                Location destination = exit.getDestination();
+                if (destination.getGround() instanceof Lake) {
+                    lake = (Lake) destination.getGround();
+                    drink = true;
+                    break;
+                }
             }
 
             if(drink){

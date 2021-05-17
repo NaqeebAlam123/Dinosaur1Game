@@ -81,31 +81,18 @@ public class Stegosaur extends Dinosaur {
 		Action wander = null;
 		boolean drink = false;
 		Lake lake = null;
-		int x = thisLocation.x();
-		int y = thisLocation.y();
-		Ground left = null;
-		Ground down = null;
-		Ground right = map.at(x + 1, y).getGround();
-		if(x> 1){
-			left = map.at(x - 1, y).getGround();}
 
-		Ground up = map.at(x , y + 1).getGround();
-		if(y>1){
-			down = map.at(x, y - 1).getGround();}
+
 		if(isConscious() && getWaterLevel() > 0){
 
-			if(up instanceof Lake){
-				drink = true;
-				lake = (Lake) up;
-			}else if(down instanceof Lake){
-				drink = true;
-				lake = (Lake) down;
-			}else if(left instanceof Lake){
-				drink = true;
-				lake = (Lake) left;
-			}else if(right instanceof Lake){
-				drink = true;
-				lake = (Lake) right;
+
+			for (Exit exit : thisLocation.getExits()) {
+				Location destination = exit.getDestination();
+				if (destination.getGround() instanceof Lake) {
+					lake = (Lake) destination.getGround();
+					drink = true;
+					break;
+				}
 			}
 
 			if(drink){
@@ -144,7 +131,7 @@ public class Stegosaur extends Dinosaur {
 					if (!(hasCapability(BreedingState.Pregnant))) {
 						for (Exit exit : thisLocation.getExits()) {
 							Location destination = exit.getDestination();
-							if (destination.containsAnActor()) {
+							if (destination.containsAnActor() && getBreedingState()) {
 								Actor actor = destination.getActor();
 								if (actor instanceof Stegosaur && ((Stegosaur) actor).getGender().contentEquals("male")) {
 									setPregnantCount(0);
@@ -181,7 +168,7 @@ public class Stegosaur extends Dinosaur {
 			if(hitPoints>50 && !hasCapability(AgeGroup.Baby)){
 				Random r = new Random();
 				int breed = r.nextInt(100)+1;
-				if(breed < 70 && !this.getBreedingState()) {
+				if(breed < 99 && !this.getBreedingState()) {
 					System.out.println("Stegosaur at (" + thisLocation.x() + ", " + thisLocation.y() + ") wants to breed.");
 					this.setBreedingState(true);
 					wander = new Following(false, true, false, false).getAction(this, map);
@@ -207,8 +194,9 @@ public class Stegosaur extends Dinosaur {
 			}
 		}
 		else{
+			System.out.println("Stegosaur at (" + thisLocation.x() + ", " +thisLocation.y() + ") is unconscious.");
 			incrementUnconsciousTurns();
-			if(getUnconsciousTurns()==20){
+			if(getUnconsciousTurns()==2){
 				System.out.println("Stegosaur at (" + thisLocation.x() + ", " +thisLocation.y() + ") is dead.");
 				map.removeActor(this);
 				thisLocation.addItem(new StegosaurCorpse("Stegosaur",'?'));
