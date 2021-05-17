@@ -57,6 +57,8 @@ public class PickupFromVendingMachine extends PickUpItemAction {
         else if(item instanceof  BrachiosaurEgg){
             player.deductPoints(((BrachiosaurEgg) item).ecoPoints);
 
+        }else if(item instanceof AllosaurEgg){
+            player.deductPoints(((AllosaurEgg)item).ecoPoints);
         }
         else if(item instanceof Laser){
             player.deductPoints(((Laser) item).ecoPoints);
