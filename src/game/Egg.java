@@ -53,7 +53,7 @@ public class Egg  extends Item {
             gender="female";
         }
 
-        if (hasCapability(eggOf.Stegosaur)&& eggAge==30){
+        if (hasCapability(eggOf.Stegosaur)&& eggAge==10){
             if (currentLocation.getActor()==null) {
                 creatingBabyDinosaur(player, 100, currentLocation, new Stegosaur("Stegosaur", gender));
             }
@@ -62,7 +62,7 @@ public class Egg  extends Item {
             }
 
         }
-        else if (hasCapability(eggOf.Brachiosaur)&& eggAge==10){
+        else if (hasCapability(eggOf.Brachiosaur)&& eggAge==30){
             if (currentLocation.getActor()==null) {
                 creatingBabyDinosaur(player, 1000, currentLocation, new Brachiosaur("Brachiosaur", gender));
             }
