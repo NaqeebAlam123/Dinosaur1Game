@@ -6,7 +6,7 @@ import edu.monash.fit2099.engine.Item;
 
 public class Portal extends Item {
     public Portal(){
-        super("Portal",'P',false);
+        super("Portal",'=',false);
     }
     public void addAction(Action action) {
         this.allowableActions.add(action);

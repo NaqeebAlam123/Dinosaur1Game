@@ -48,6 +48,8 @@ public class VendingMachine extends Ground {
      * AllosaurEgg object
      */
     private AllosaurEgg allosaurEgg = new AllosaurEgg("AllosaurEgg",'0',true);
+
+    private PterodactylsEgg pterodactylsEgg = new PterodactylsEgg("PterodactylsEgg",'0',true);
     /**
      * Returns the actions that can be done on Vending Machine
      * @param actor the Actor acting
@@ -80,6 +82,9 @@ public class VendingMachine extends Ground {
                 actions.add(new PickupFromVendingMachine(brachiosaurEgg));
             }
             if(points> allosaurEgg.ecoPoints){
+                actions.add(new PickupFromVendingMachine(allosaurEgg));
+            }
+            if(points> pterodactylsEgg.ecoPoints){
                 actions.add(new PickupFromVendingMachine(allosaurEgg));
             }
         }

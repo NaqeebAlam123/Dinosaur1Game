@@ -9,6 +9,6 @@ package game;
  * @see Egg
  */
 public enum eggOf {
-    Brachiosaur,Stegosaur,Allosaur
+    Brachiosaur,Stegosaur,Allosaur,Pterodactyls
 
 }

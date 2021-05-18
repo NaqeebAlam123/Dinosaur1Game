@@ -1,5 +1,6 @@
 package game;
 
+import edu.monash.fit2099.demo.mars.DemoCapabilities;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Ground;
 import edu.monash.fit2099.engine.Location;
@@ -38,7 +39,7 @@ public class Lake extends Ground {
 
     @Override
     public boolean canActorEnter(Actor actor){
-        return false;
+        return actor.hasCapability(FlyBehaviour.FLY);
     }
     @Override
     public void tick(Location location) {

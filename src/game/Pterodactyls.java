@@ -10,9 +10,11 @@ public class Pterodactyls extends Dinosaur{
         super(name, 'P', 100, 100, gender);
         setWaterLevel(60);
         hitPoints = 50;
+        hasCapability(FlyBehaviour.FLY);
     }
 
     private boolean fly = true;
+
     private int flyDuration = 30;
 
     public void setFlying(boolean fly){
@@ -64,8 +66,8 @@ public class Pterodactyls extends Dinosaur{
             }
 
             if (thisLocation.getGround() instanceof Lake){
-                drink = true;
                 lake = (Lake) thisLocation.getGround();
+                drink = true;
                 int catchFish = 0;
                 int heal = 0;
                 if (lake.getNumberOfFish() > 0){
@@ -87,6 +89,14 @@ public class Pterodactyls extends Dinosaur{
                 setFlyDuration(30);
             }
 
+            for (Exit exit : thisLocation.getExits()) {
+                Location destination = exit.getDestination();
+                if (destination.getGround() instanceof Lake) {
+                    lake = (Lake) destination.getGround();
+                    drink = true;
+                    break;
+                }
+            }
             if (drink) {
                 addWaterLevel(30);
                 lake.decNumberOfSips();
@@ -108,6 +118,7 @@ public class Pterodactyls extends Dinosaur{
 
             if (getFlyDuration() <= 0){
                 setFlying(false);
+                removeCapability(FlyBehaviour.FLY);
             }
             }
             if (!hasCapability(AgeGroup.Baby)) {
@@ -131,8 +142,8 @@ public class Pterodactyls extends Dinosaur{
                         incrementPregnantCount();
                         if (getPregnantCount() >= 20 && thisLocation.getGround() instanceof Tree) {
                             System.out.println("Pterodactyl at (" + x + ", " + y + ") lays an egg.");
-                            AllosaurEgg EGG = new AllosaurEgg("egg", '0', false);
-                            EGG.addCapability(eggOf.Allosaur);
+                            PterodactylsEgg EGG = new PterodactylsEgg("egg", '0', false);
+                            EGG.addCapability(eggOf.Pterodactyls);
                             thisLocation.addItem(EGG);
                             removeCapability(BreedingState.Pregnant);
 
