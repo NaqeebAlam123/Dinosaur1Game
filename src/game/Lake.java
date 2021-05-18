@@ -1,10 +1,12 @@
 package game;
 
+import edu.monash.fit2099.engine.Actor;
+import edu.monash.fit2099.engine.Ground;
 import edu.monash.fit2099.engine.Location;
 
 import java.util.Random;
 
-public class Lake extends FoodSource{
+public class Lake extends Ground {
 
     private int numberOfSips = 25;
     private int numberOfFish = 5;
@@ -34,6 +36,10 @@ public class Lake extends FoodSource{
         return numberOfFish;
     }
 
+    @Override
+    public boolean canActorEnter(Actor actor){
+        return false;
+    }
     @Override
     public void tick(Location location) {
         super.tick(location);

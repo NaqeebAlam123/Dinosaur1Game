@@ -62,7 +62,8 @@ public class Tree extends FoodSource {
 	    	add(new Fruit("apple",'a',true));
 	    	GameMap map=location.map();
 	    	Player player=Util.findPlayer(map);
-			player.incrementPoints(1);
+	    	if(player != null){
+			player.incrementPoints(1);}
 	    	hangingFruits=hangingFruits+1;
 		}
 	    for(int i=0;i<=getFruits().size()-1;i++){
