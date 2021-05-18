@@ -31,15 +31,20 @@ public class Following implements Behaviour {
      */
     private boolean toAttack;
     /**
+     * indicates dinosaur want to find lake
+     */
+    private boolean toLake;
+    /**
      * Intiallises boolean values indicating whether dinsosaur wants to move towards dinosaur ( to attack or mate) or foodSource(which can be corpse or Bush or Tree)
      * @param toBushTrees
      * @param toDinosaur
      */
-    public Following( boolean toBushTrees,boolean toDinosaur,boolean toCorpse,boolean toAttack){
+    public Following( boolean toBushTrees,boolean toDinosaur,boolean toCorpse,boolean toAttack, boolean toLake){
         this.toDinosaur=toDinosaur;
         this.toBushTrees=toBushTrees;
         this.toCorpse=toCorpse;
         this.toAttack=toAttack;
+        this.toLake=toLake;
     }
 
     /**
@@ -70,7 +75,8 @@ public class Following implements Behaviour {
             for (int x : map.getXRange()) {
                 if (((toDinosaur) && (map.at(x,y).getActor() instanceof Stegosaur && actor instanceof Stegosaur && ((Stegosaur) actor).getTarget().contentEquals(((Stegosaur)map.at(x,y).getActor()).getGender()))
                 ||(map.at(x,y).getActor() instanceof Brachiosaur && actor instanceof  Brachiosaur&& ((Brachiosaur) actor).getTarget().contentEquals(((Brachiosaur)map.at(x,y).getActor()).getGender())))
-                        ||((toBushTrees) &&(map.at(x,y).getGround() instanceof Tree||map.at(x,y).getGround() instanceof Bush))|| ((toCorpse) && map.at(x,y).getItems() instanceof Corpse)|| ((toAttack) && map.at(x,y).getActor() instanceof Stegosaur)) {
+                        ||((toBushTrees) &&(map.at(x,y).getGround() instanceof Tree||map.at(x,y).getGround() instanceof Bush))|| ((toCorpse) && map.at(x,y).getItems() instanceof Corpse)
+                        || ((toAttack) && map.at(x,y).getActor() instanceof Stegosaur)||((toLake) && (map.at(x,y).getGround() instanceof Lake))) {
                         for (int i = 0; i <= possibleDestinations.size() - 1; i++) {
                             int thisDistance = Util.distance(possibleDestinations.get(i), map.at(x, y));
                             if (thisDistance < bestDistances.get(i)) {

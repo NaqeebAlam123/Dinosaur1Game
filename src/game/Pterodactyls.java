@@ -153,22 +153,22 @@ public class Pterodactyls extends Dinosaur{
                 if (breed < 70 && !this.getBreedingState()) {
                     System.out.println("Pterodactyl at (" + x + ", " + y + ") wants to breed.");
                     this.setBreedingState(true);
-                    wander = new Following(false, true, false, false).getAction(this, map);
+                    wander = new Following(false, true, false, false, false).getAction(this, map);
                 }
             } else if (hitPoints < 90) {
 
                 System.out.println(this.name + " at (" + thisLocation.x() + "," + thisLocation.y() + ") is getting hungry!");
                 if (hitPoints < 70) {
                     // Very Hungry
-                    wander = new Following(false, false, true, false).getAction(this, map);
+                    wander = new Following(false, false, true, false, false).getAction(this, map);
                 } else {
                     // Not so hungry
-                    wander = new Following(false, false, false, true).getAction(this, map);
+                    wander = new Following(false, false, false, true, false).getAction(this, map);
                 }
             } else if (getWaterLevel() < 50) {
 
                 System.out.println(this.name + " at (" + thisLocation.x() + "," + thisLocation.y() + ") is getting thirsty!");
-                //STUDS: move towards water
+                wander=new Following(false,false,false,false,true).getAction(this,map);
             } else {
                 wander = getBehaviour().getAction(this, map);
             }
