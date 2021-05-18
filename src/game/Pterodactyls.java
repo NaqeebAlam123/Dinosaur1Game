@@ -159,27 +159,28 @@ public class Pterodactyls extends Dinosaur{
                 }
             }
             setUnconsciousTurns(0);
-            if (hitPoints > 50 && hitPoints < 70 && !hasCapability(AgeGroup.Baby)) {
+            if(getPregnantCount() >= 20) {
+                wander = new Following(false, false, false, false, false,true).getAction(this, map);
+
+
+            }else if (hitPoints > 50 && hitPoints < 70 && !hasCapability(AgeGroup.Baby)) {
                 int breed = r.nextInt(100) + 1;
                 if (breed < 70 && !this.getBreedingState()) {
                     System.out.println("Pterodactyl at (" + x + ", " + y + ") wants to breed.");
                     this.setBreedingState(true);
-                    wander = new Following(false, true, false, false, false).getAction(this, map);
+                    wander = new Following(false, true, false, false, false,false).getAction(this, map);
                 }
             } else if (hitPoints < 90) {
 
                 System.out.println(this.name + " at (" + thisLocation.x() + "," + thisLocation.y() + ") is getting hungry!");
                 if (hitPoints < 70) {
                     // Very Hungry
-                    wander = new Following(false, false, true, false, false).getAction(this, map);
-                } else {
-                    // Not so hungry
-                    wander = new Following(false, false, false, true, false).getAction(this, map);
+                    wander = new Following(false, false, true, false, false,false).getAction(this, map);
                 }
             } else if (getWaterLevel() < 50) {
 
                 System.out.println(this.name + " at (" + thisLocation.x() + "," + thisLocation.y() + ") is getting thirsty!");
-                wander=new Following(false,false,false,false,true).getAction(this,map);
+                wander=new Following(false,false,false,false,true,false).getAction(this,map);
             } else {
                 wander = getBehaviour().getAction(this, map);
             }

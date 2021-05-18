@@ -125,17 +125,17 @@ public class Brachiosaur extends Dinosaur {
                 if(breed < 70 && !this.getBreedingState()) {
                     System.out.println("Brachiosaur at (" + thisLocation.x() + ", " + thisLocation.y() + ") wants to breed.");
                     this.setBreedingState(true);
-                    wander = new Following(false, true, false, false, false).getAction(this, map);
+                    wander = new Following(false, true, false, false, false, false).getAction(this, map);
                 }
             }
             else if(hitPoints<140){
                 System.out.println(this.name+" at ("+thisLocation.x()+","+thisLocation.y()+") is getting hungry!");
-                wander=new Following(true,false,false,false, false).getAction(this,map);
+                wander=new Following(true,false,false,false, false,false).getAction(this,map);
             }else if(getWaterLevel()<50){
 
                 System.out.println(this.name+" at ("+thisLocation.x()+","+thisLocation.y()+") is getting thirsty!");
 
-                wander=new Following(false,false,false,false,true).getAction(this,map);
+                wander=new Following(false,false,false,false,true, false).getAction(this,map);
             }
             else{
                 wander=getBehaviour().getAction(this,map);
