@@ -72,7 +72,7 @@ public class Pterodactyls extends Dinosaur{
                 int heal = 0;
                 if (lake.getNumberOfFish() > 0){
                     if (lake.getNumberOfFish() <= 3){
-                        catchFish = r.nextInt(lake.getNumberOfFish());
+                        catchFish = r.nextInt(lake.getNumberOfFish())+1;
                         heal = 5*catchFish;
 
                     }else{
