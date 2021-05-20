@@ -9,28 +9,23 @@ import java.util.Random;
 
 public class Lake extends Ground {
 
-    private int numberOfSips = 25;
+
+    private int numberOfSips = 0;
     private int numberOfFish = 5;
-    private int turn = 0;
 
     public Lake(){
         super('~');
     }
 
-    public void addNumberOfSips(int numberOfSips){
-        this.numberOfSips += numberOfSips;
+    public void setNumberOfSips(int numberOfSips) {
+        this.numberOfSips = Math.min(numberOfSips,25);
     }
-
-    public void decNumberOfSips(){
-        numberOfSips -= 1;
-    }
-
     public int getNumberOfSips(){
         return  numberOfSips;
     }
 
     public void setNumberOfFish(int numberOfFish){
-        this.numberOfFish += numberOfFish;
+        this.numberOfFish = Math.min(numberOfFish,25);
     }
 
     public int getNumberOfFish(){
@@ -44,20 +39,13 @@ public class Lake extends Ground {
 
     @Override
     public void tick(Location location) {
-        super.tick(location);
         Random r = new Random();
-        int fishChance = r.nextInt(100)+1;
-        int rainChance = r.nextInt(100) + 1;
-        double rainfall = 20 * (0.1 + (r.nextDouble() * 0.5)); //20 * (0.1~0.6)
-        turn++;
-
-        if ((turn%10) == 0 && turn > 0){ //every 10 turn
-            if (rainChance <= 20){
-                addNumberOfSips((int)Math.round(rainfall));
-            }
+        double rainFall = Math.floor((Math.random() * (1.5))+0.1);
+        if (Sky.isRaining()){
+            setNumberOfSips(getNumberOfSips()+(int)(rainFall*20));
         }
-        if (fishChance <= 60 && numberOfFish < 25){
-            numberOfFish++;
+        if (r.nextInt(100)+1<=60){
+            setNumberOfFish(getNumberOfFish()+1);
         }
     }
     }

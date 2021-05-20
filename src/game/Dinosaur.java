@@ -48,7 +48,15 @@ public abstract class Dinosaur extends Actor {
     /**
      * The water level of dinosaurs
      */
-    private int waterLevel = 60;
+    private int waterLevel;
+
+    public int getMaxWaterLevel() {
+        return maxWaterLevel;
+    }
+
+    public void setMaxWaterLevel(int maxWaterLevel) {
+        if(maxWaterLevel>0){this.maxWaterLevel = maxWaterLevel;}
+    }
 
     /**
      * Maximum water level of a dinosaur
@@ -60,7 +68,7 @@ public abstract class Dinosaur extends Actor {
      * @param waterLevel
      */
     public void setWaterLevel(int waterLevel){
-        this.waterLevel = waterLevel;
+        if (waterLevel>0){this.waterLevel = Math.min(waterLevel,getMaxWaterLevel());}
     }
 
     /**
@@ -69,14 +77,6 @@ public abstract class Dinosaur extends Actor {
      */
     public int getWaterLevel(){
         return waterLevel;
-    }
-
-    public void addWaterLevel(int waterLevel){
-        this.waterLevel += waterLevel;
-    }
-
-    public void thirsty(){
-        waterLevel -= 1;
     }
 
     /**
@@ -251,7 +251,7 @@ public abstract class Dinosaur extends Actor {
      * @param maxWaterLevel
      * @param gender
      */
-    public Dinosaur(String name, char displayChar, int hitPoints, int maxWaterLevel,String gender) {
+    public Dinosaur(String name, char displayChar, int hitPoints,int waterLevel, int maxWaterLevel,String gender) {
         super(name, displayChar, hitPoints);
         this.gender=gender;
         if (gender.contentEquals("female")){
@@ -260,9 +260,8 @@ public abstract class Dinosaur extends Actor {
         else{
             target="male";
         }
-        if (maxWaterLevel > 0){
-            this.maxWaterLevel = maxWaterLevel;
-        }
+        setMaxWaterLevel(maxWaterLevel);
+        setWaterLevel(waterLevel);
 
         behaviour = new WanderBehaviour();;
     }

@@ -23,13 +23,12 @@ public class Brachiosaur extends Dinosaur {
 
     /**
      * Constructor.
-     * All Brachioosaurs are represented by a 'e' and have 160 hit points.
+     * All Stegosaurs are represented by a 'd' and have 100 hit points.
      *
-     * @param name the name of this Brachiosaur
+     * @param name the name of this Stegosaur
      */
     public Brachiosaur(String name,String gender) {
-        super(name, 'e', 160, 200,gender);
-        setWaterLevel(60);
+        super(name, 'e', 160,60,200,gender);
         hitPoints=100;
 
     }
@@ -44,23 +43,9 @@ public class Brachiosaur extends Dinosaur {
         Random r=new Random();
         Location thisLocation=map.locationOf(this);
         Action wander = null;
-        boolean drink = false;
-        Lake lake = null;
 
-        if(isConscious() && getWaterLevel() > 0){
-            for (Exit exit : thisLocation.getExits()) {
-                Location destination = exit.getDestination();
-                if (destination.getGround() instanceof Lake) {
-                    lake = (Lake) destination.getGround();
-                    drink = true;
-                    break;
-                }
-            }
 
-            if(drink){
-                addWaterLevel(30);
-                lake.decNumberOfSips();
-            }
+        if(isConscious()){
             if (thisLocation.getGround() instanceof Tree){
                 Tree tree=(Tree)thisLocation.getGround();
                 for (Fruit fruits:tree.getFruits()) {
@@ -124,26 +109,22 @@ public class Brachiosaur extends Dinosaur {
                 if(breed < 70 && !this.getBreedingState()) {
                     System.out.println("Brachiosaur at (" + thisLocation.x() + ", " + thisLocation.y() + ") wants to breed.");
                     this.setBreedingState(true);
-                    wander = new Following(false, true, false, false, false, false).getAction(this, map);
+                    wander = new Following(false, true, false, false,false,false).getAction(this, map);
                 }
             }
             else if(hitPoints<140){
                 System.out.println(this.name+" at ("+thisLocation.x()+","+thisLocation.y()+") is getting hungry!");
-                wander=new Following(true,false,false,false, false,false).getAction(this,map);
-            }else if(getWaterLevel()<50){
-
+                wander=new Following(true,false,false,false,false,false).getAction(this,map);
+            }
+            else if(getWaterLevel()<40){
                 System.out.println(this.name+" at ("+thisLocation.x()+","+thisLocation.y()+") is getting thirsty!");
+                wander=new Following(true,false,false,false,true,false).getAction(this,map);
 
-                wander=new Following(false,false,false,false,true, false).getAction(this,map);
             }
             else{
                 wander=getBehaviour().getAction(this,map);
             }
-
-            // decrease food level and water level
             hurt(1);
-            thirsty();
-
             if (wander!=null){
                 return wander;
             }
