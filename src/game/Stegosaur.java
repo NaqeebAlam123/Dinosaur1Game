@@ -30,8 +30,7 @@ public class Stegosaur extends Dinosaur {
 	 * @param name the name of this Stegosaur
 	 */
 	public Stegosaur(String name,String gender) {
-		super(name, 'd', 100, 100, gender);
-		setWaterLevel(60);
+		super(name, 'd', 100, 60,100, gender);
 		hitPoints = 50;
 
 	}
@@ -95,10 +94,6 @@ public class Stegosaur extends Dinosaur {
 				}
 			}
 
-			if(drink){
-				addWaterLevel(30);
-				lake.decNumberOfSips();
-			}
 			if(thisLocation.getGround() instanceof Tree){
 				foodSource=(Tree)thisLocation.getGround();
 
@@ -145,7 +140,7 @@ public class Stegosaur extends Dinosaur {
 						}
 					} else {
 						incrementPregnantCount();
-						if (getPregnantCount() == 10) {
+						if (getPregnantCount() == 2) {
 							System.out.println("Stegosaur at (" + thisLocation.x() + ", " +thisLocation.y() + ") lay an egg.");
 							StegosaurEgg egg = new StegosaurEgg("egg", '0', false);
 							egg.addCapability(eggOf.Stegosaur);
@@ -177,7 +172,7 @@ public class Stegosaur extends Dinosaur {
 			else if(hitPoints<90){
 				System.out.println(this.name+" at ("+thisLocation.x()+","+thisLocation.y()+") is getting hungry!");
 				wander=new Following(true,false,false,false, false, false).getAction(this,map);
-			}else if(getWaterLevel()<50){
+			}else if(getWaterLevel()<40){
 
 				System.out.println(this.name+" at ("+thisLocation.x()+","+thisLocation.y()+") is getting thirsty!");
 
@@ -188,7 +183,6 @@ public class Stegosaur extends Dinosaur {
 			}
 
 			// decrease food level and water level
-			thirsty();
 			hurt(1);
 			if (wander!=null){
 				return wander;
