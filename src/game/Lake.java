@@ -41,6 +41,7 @@ public class Lake extends Ground {
     public boolean canActorEnter(Actor actor){
         return actor.hasCapability(FlyBehaviour.FLY);
     }
+
     @Override
     public void tick(Location location) {
         super.tick(location);
