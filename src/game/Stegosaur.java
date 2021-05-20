@@ -3,6 +3,7 @@ package game;
 
 import edu.monash.fit2099.engine.*;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -23,14 +24,16 @@ public class Stegosaur extends Dinosaur {
 
 	private boolean hurt;
 	private int hurtDuration;
+	private DinosaurFunctionsClass dinosaurFunctionsClass;
 	/** 
 	 * Constructor.
 	 * All Stegosaurs are represented by a 'd' and have 100 hit points.
 	 * 
 	 * @param name the name of this Stegosaur
 	 */
-	public Stegosaur(String name,String gender) {
+	public Stegosaur(String name, String gender, DinosaurFunctionsClass dinosaurFunctionsClass) {
 		super(name, 'd', 100, 60,100, gender);
+		this.dinosaurFunctionsClass=dinosaurFunctionsClass;
 		hitPoints = 50;
 
 	}
@@ -75,25 +78,16 @@ public class Stegosaur extends Dinosaur {
 	 */
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
+
 		Location thisLocation=map.locationOf(this);
 		FoodSource foodSource=null;
 		Action wander = null;
-		boolean drink = false;
-		Lake lake = null;
 
 
-		if(isConscious() && getWaterLevel() > 0){
+		if(isConscious() ){
 
-
-			for (Exit exit : thisLocation.getExits()) {
-				Location destination = exit.getDestination();
-				if (destination.getGround() instanceof Lake) {
-					lake = (Lake) destination.getGround();
-					drink = true;
-					break;
-				}
-			}
-
+			dinosaurFunctionsClass.drink(this,thisLocation);
+			setUnconsciousTurns(0);
 			if(thisLocation.getGround() instanceof Tree){
 				foodSource=(Tree)thisLocation.getGround();
 
@@ -184,17 +178,23 @@ public class Stegosaur extends Dinosaur {
 
 			// decrease food level and water level
 			hurt(1);
+			setWaterLevel(getWaterLevel()-1);
 			if (wander!=null){
 				return wander;
 			}
 		}
 		else{
 			System.out.println("Stegosaur at (" + thisLocation.x() + ", " +thisLocation.y() + ") is unconscious.");
-			incrementUnconsciousTurns();
-			if(getUnconsciousTurns()==2){
-				System.out.println("Stegosaur at (" + thisLocation.x() + ", " +thisLocation.y() + ") is dead.");
-				map.removeActor(this);
-				thisLocation.addItem(new StegosaurCorpse("Stegosaur",'?'));
+			if(Sky.isRaining()){
+				setWaterLevel(10);
+			}
+			if(!isConscious()) {
+				incrementUnconsciousTurns();
+				if (getUnconsciousTurns() == 15) {
+					System.out.println("Stegosaur at (" + thisLocation.x() + ", " + thisLocation.y() + ") is dead.");
+					map.removeActor(this);
+					thisLocation.addItem(new StegosaurCorpse("Stegosaur", '?'));
+				}
 			}
 		}
 		

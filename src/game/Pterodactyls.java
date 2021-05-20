@@ -6,9 +6,12 @@ import java.util.List;
 import java.util.Random;
 
 public class Pterodactyls extends Dinosaur{
-    public Pterodactyls(String name,String gender) {
-        super(name, 'P', 100, 100, gender);
-        setWaterLevel(60);
+    private DinosaurFunctionsClass dinosaurFunctionsClass;
+    private DinosaurFunctionsClass dinosaurFunctionsClass2;
+    public Pterodactyls(String name,String gender,DinosaurFunctionsClass dinosaurFunctionsClass,DinosaurFunctionsClass dinosaurFunctionsClass2) {
+        super(name, 'P', 100,60, 100, gender);
+        this.dinosaurFunctionsClass=dinosaurFunctionsClass;
+        this.dinosaurFunctionsClass2=dinosaurFunctionsClass2;
         hitPoints = 50;
         addCapability(FlyBehaviour.FLY);
     }
@@ -37,8 +40,6 @@ public class Pterodactyls extends Dinosaur{
     @Override
     public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
         Random r = new Random();
-        boolean drink = false;
-        Lake lake = null;
         Location thisLocation = map.locationOf(this);
         int x = thisLocation.x();
         int y = thisLocation.y();
@@ -46,7 +47,8 @@ public class Pterodactyls extends Dinosaur{
 
         Action wander = null;
 
-        if (isConscious() && getWaterLevel() > 0) {
+        if (isConscious()) {
+            setUnconsciousTurns(0);
             boolean corpseExist = false;
             Corpse corpse = null;
 
@@ -58,41 +60,21 @@ public class Pterodactyls extends Dinosaur{
                 }
             }
 
-            if (thisLocation.getGround() instanceof Lake){
-                lake = (Lake) thisLocation.getGround();
-                drink = true;
-                int catchFish;
-                int heal;
-                if (lake.getNumberOfFish() > 0){
-                    if (lake.getNumberOfFish() < 3){
-                        catchFish = r.nextInt(lake.getNumberOfFish())+1;
 
-                    }else{
-                        catchFish = r.nextInt(3);
-                    }
-                    heal = 5*catchFish;
-                    if (this.getMaxHitPoints() > (this.getHitPoints() + heal)) {
-                        this.heal(heal);
-                    } else {
-                        this.setHitPoints(this.getMaxHitPoints());
-                    }
-                }
-            }else if (thisLocation.getGround() instanceof Tree){
+            if (thisLocation.getGround() instanceof Tree){
                 setFlyDuration(30);
             }
-
-            for (Exit exit : thisLocation.getExits()) {
-                Location destination = exit.getDestination();
-                if (destination.getGround() instanceof Lake) {
-                    lake = (Lake) destination.getGround();
-                    drink = true;
-                    break;
-                }
+            if(!hasCapability(FlyBehaviour.FLY)) {
+                dinosaurFunctionsClass.drink(this, thisLocation);
             }
-            if (drink) {
+            else {
+                dinosaurFunctionsClass2.catchFish(this, thisLocation);
+            }
+
+            /*if (drink) {
                 addWaterLevel(30);
                 lake.decNumberOfSips();
-            }
+            }*/
 
             if (corpseExist) { //if it is a corpse
 
@@ -177,8 +159,8 @@ public class Pterodactyls extends Dinosaur{
             }
 
             //decrease water level and food level by 1
-            thirsty();
             hurt(1);
+            setWaterLevel(getWaterLevel()-1);
             if(getFlyDuration() - 1 > 0) {
                 decFlyDuration();
             }
@@ -186,11 +168,17 @@ public class Pterodactyls extends Dinosaur{
                 return wander;
             }
          else {
+             System.out.println("Pterodactyls at (" + thisLocation.x() + ", " +thisLocation.y() + ") is unconscious.");
             incrementUnconsciousTurns();
-            if (getUnconsciousTurns() == 20) {
-                System.out.println("Pterodactyl at (" + thisLocation.x() + ", " + thisLocation.y() + ") is dead");
-                map.removeActor(this);
-                thisLocation.addItem(new AllosaurCorpse("Pterodactyl", '?'));
+            if (Sky.isRaining()){
+                setWaterLevel(10);
+            }
+            if(!isConscious()) {
+                if (getUnconsciousTurns() == 20) {
+                    System.out.println("Pterodactyl at (" + thisLocation.x() + ", " + thisLocation.y() + ") is dead");
+                    map.removeActor(this);
+                    thisLocation.addItem(new PterodactylsCorpse("Pterodactyl", '?'));
+                }
             }
         }
 

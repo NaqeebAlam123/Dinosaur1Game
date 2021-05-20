@@ -2,6 +2,7 @@ package game;
 
 import edu.monash.fit2099.engine.*;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /** a herbivore dinosaur
@@ -20,15 +21,16 @@ import java.util.Random;
 
 public class Brachiosaur extends Dinosaur {
 
-
+    private DinosaurFunctionsClass dinosaurFunctionsClass;
     /**
      * Constructor.
      * All Stegosaurs are represented by a 'd' and have 100 hit points.
      *
      * @param name the name of this Stegosaur
      */
-    public Brachiosaur(String name,String gender) {
+    public Brachiosaur(String name, String gender, DinosaurFunctionsClass dinosaurFunctionsClass) {
         super(name, 'e', 160,60,200,gender);
+        this.dinosaurFunctionsClass=dinosaurFunctionsClass;
         hitPoints=100;
 
     }
@@ -40,6 +42,7 @@ public class Brachiosaur extends Dinosaur {
      */
     @Override
     public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
+        setUnconsciousTurns(0);
         Random r=new Random();
         Location thisLocation=map.locationOf(this);
         Action wander = null;
@@ -125,16 +128,23 @@ public class Brachiosaur extends Dinosaur {
                 wander=getBehaviour().getAction(this,map);
             }
             hurt(1);
+            setWaterLevel(getWaterLevel()-1);
             if (wander!=null){
                 return wander;
             }
         }
         else{
-            incrementUnconsciousTurns();
-            if(getUnconsciousTurns()==15){
-                System.out.println("Brachiosaur at (" + thisLocation.x() + ", " +thisLocation.y() + ") is dead.");
-                map.removeActor(this);
-                thisLocation.addItem(new StegosaurCorpse("Brachiosaur",'?'));
+            System.out.println("Brachiosaur at (" + thisLocation.x() + ", " +thisLocation.y() + ") is unconscious.");
+            if(Sky.isRaining()){
+              setWaterLevel(10);
+            }
+            if(!isConscious()) {
+                incrementUnconsciousTurns();
+                if (getUnconsciousTurns() == 15) {
+                    System.out.println("Brachiosaur at (" + thisLocation.x() + ", " + thisLocation.y() + ") is dead.");
+                    map.removeActor(this);
+                    thisLocation.addItem(new BrachiosaurCorpse("Brachiosaur", '?'));
+                }
             }
         }
 

@@ -22,7 +22,7 @@ import java.util.Random;
  */
 public class Allosaur extends Dinosaur {
         // Will need to change this to a collection if Stegosaur gets additional Behaviours.
-
+        private DinosaurFunctionsClass dinosaurFunctionsClass;
 
         /**
          * Constructor.
@@ -30,9 +30,9 @@ public class Allosaur extends Dinosaur {
          *
          * @param name the name of this Allosaur
          */
-        public Allosaur(String name,String gender) {
-            super(name, 'A', 100, 100, gender);
-            setWaterLevel(60);
+        public Allosaur(String name,String gender,DinosaurFunctionsClass dinosaurFunctionsClass) {
+            super(name, 'A', 100,60, 100, gender);
+            this.dinosaurFunctionsClass=dinosaurFunctionsClass;
             hitPoints = 50;
 
         }
@@ -52,7 +52,8 @@ public class Allosaur extends Dinosaur {
 
         Action wander = null;
 
-        if(isConscious() && getWaterLevel() > 0){
+        if(isConscious()){
+            setUnconsciousTurns(0);
             boolean corpseExist = false;
             boolean eggExist = false;
             Corpse corpse = null;
@@ -79,10 +80,10 @@ public class Allosaur extends Dinosaur {
             }
 
 
-            if(drink){
+            /*if(drink){
                 addWaterLevel(30);
                 lake.decNumberOfSips();
-            }
+            }*/
 
             if(corpseExist){ //if it is a corpse
                 if (corpse instanceof AllosaurCorpse || corpse instanceof StegosaurCorpse){
@@ -236,7 +237,7 @@ public class Allosaur extends Dinosaur {
             }
 
             //decrease water level and food level by 1
-            thirsty();
+            setWaterLevel(getWaterLevel()-1);
             hurt(1);
 
             if (wander!=null){
@@ -244,11 +245,17 @@ public class Allosaur extends Dinosaur {
             }
         }
         else{
-            incrementUnconsciousTurns();
-            if(getUnconsciousTurns()==20){
-                System.out.println("Allosaur at (" + thisLocation.x() + ", " +thisLocation.y() + ") is dead");
-                map.removeActor(this);
-                thisLocation.addItem(new AllosaurCorpse("Allosaur",'?'));
+            System.out.println("Allosaur at (" + thisLocation.x() + ", " +thisLocation.y() + ") is unconscious.");
+            if(Sky.isRaining()){
+                setWaterLevel(10);
+            }
+            if(!isConscious()) {
+                incrementUnconsciousTurns();
+                if (getUnconsciousTurns() == 20) {
+                    System.out.println("Allosaur at (" + thisLocation.x() + ", " + thisLocation.y() + ") is dead");
+                    map.removeActor(this);
+                    thisLocation.addItem(new AllosaurCorpse("Allosaur", '?'));
+                }
             }
         }
 

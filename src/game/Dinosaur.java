@@ -50,6 +50,8 @@ public abstract class Dinosaur extends Actor {
      */
     private int waterLevel;
 
+
+
     public int getMaxWaterLevel() {
         return maxWaterLevel;
     }
@@ -68,7 +70,7 @@ public abstract class Dinosaur extends Actor {
      * @param waterLevel
      */
     public void setWaterLevel(int waterLevel){
-        if (waterLevel>0){this.waterLevel = Math.min(waterLevel,getMaxWaterLevel());}
+        if (waterLevel>=0){this.waterLevel = Math.min(waterLevel,getMaxWaterLevel());}
     }
 
     /**
@@ -126,7 +128,7 @@ public abstract class Dinosaur extends Actor {
      * @param hitPoints
      */
     public void setHitPoints(int hitPoints){
-        this.hitPoints=hitPoints;
+        this.hitPoints=Math.min(hitPoints,getMaxHitPoints());
     }
 
     /**
@@ -281,5 +283,10 @@ public abstract class Dinosaur extends Actor {
             actions.add(new FeedDinosaur(this));}
 
         return actions;
+    }
+
+    @Override
+    public boolean isConscious() {
+        return (super.isConscious() || getWaterLevel()>0);
     }
 }
