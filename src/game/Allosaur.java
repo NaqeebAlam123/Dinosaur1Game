@@ -159,7 +159,7 @@ public class Allosaur extends Dinosaur {
                 Location destination = exit.getDestination();
                 if (destination.getActor() instanceof Pterodactyls) {
                     Pterodactyls pterodactyls = (Pterodactyls) destination.getActor();
-                    if (!pterodactyls.getFlying()) { // If pterodactyl is not flying
+                    if (!pterodactyls.hasCapability(FlyBehaviour.FLY)) { // If pterodactyl is not flying
                         System.out.println("Allosaur  at ( " + thisLocation.x() + ", " + thisLocation.y() + ") attacks Pterodactyl.");
                         this.setHitPoints(getMaxHitPoints());
                         ActorLocations actorLocations = new ActorLocations();

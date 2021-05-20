@@ -10,20 +10,13 @@ public class Pterodactyls extends Dinosaur{
         super(name, 'P', 100, 100, gender);
         setWaterLevel(60);
         hitPoints = 50;
-        hasCapability(FlyBehaviour.FLY);
+        addCapability(FlyBehaviour.FLY);
     }
 
-    private boolean fly = true;
 
     private int flyDuration = 30;
 
-    public void setFlying(boolean fly){
-        this.fly = fly;
-    }
 
-    public boolean getFlying(){
-        return fly;
-    }
 
     public void setFlyDuration(int flyDuration){
         this.flyDuration = flyDuration;
@@ -68,17 +61,16 @@ public class Pterodactyls extends Dinosaur{
             if (thisLocation.getGround() instanceof Lake){
                 lake = (Lake) thisLocation.getGround();
                 drink = true;
-                int catchFish = 0;
-                int heal = 0;
+                int catchFish;
+                int heal;
                 if (lake.getNumberOfFish() > 0){
-                    if (lake.getNumberOfFish() <= 3){
+                    if (lake.getNumberOfFish() < 3){
                         catchFish = r.nextInt(lake.getNumberOfFish())+1;
-                        heal = 5*catchFish;
 
                     }else{
                         catchFish = r.nextInt(3);
-                        heal = 5*catchFish;
                     }
+                    heal = 5*catchFish;
                     if (this.getMaxHitPoints() > (this.getHitPoints() + heal)) {
                         this.heal(heal);
                     } else {
@@ -117,7 +109,6 @@ public class Pterodactyls extends Dinosaur{
             }
 
             if (getFlyDuration() <= 0){
-                setFlying(false);
                 removeCapability(FlyBehaviour.FLY);
             }
             }
@@ -159,7 +150,7 @@ public class Pterodactyls extends Dinosaur{
                 }
             }
             setUnconsciousTurns(0);
-            if(getPregnantCount() >= 20) {
+            if(getPregnantCount() >= 15) {
                 wander = new Following(false, false, false, false, false,true).getAction(this, map);
 
 
