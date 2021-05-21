@@ -77,6 +77,7 @@ public class Application {
 
 		Actor player = new Player("Player", '@', 100);
 		world.addPlayer(player, gameMap.at(40, 1));
+		Sky.setRaining(false);
 		Portal portal = new Portal();
 		Portal portalBack = new Portal();
 		portal.addAction(new MoveActorAction(gameMap2.at(40,24),"to next area"));
