@@ -1,13 +1,34 @@
 package game;
 
 public class Challenge implements GameMode{
+    public boolean setMaxNumberOfMoves(int maxNumberOfMoves) {
+        if (maxNumberOfMoves>0) {
+            this.maxNumberOfMoves = maxNumberOfMoves;
+            return true;
+        }
+        else {return false;}
+    }
+
+    public boolean setMaxNumberOfEcoPoints(int maxNumberOfEcoPoints) {
+        if(maxNumberOfEcoPoints>0){
+            this.maxNumberOfEcoPoints = maxNumberOfEcoPoints;
+            return true;
+        }
+        else {return false;}
+
+    }
+
     private int maxNumberOfMoves;
     private int maxNumberOfEcoPoints;
     private int currentNumberOfMoves=0;
     private String message;
-    public Challenge(int maxNumberOfMoves,int maxNumberOfEcoPoints) {
-        this.maxNumberOfEcoPoints=maxNumberOfEcoPoints;
-        this.maxNumberOfMoves=maxNumberOfMoves;
+    public Challenge(int maxNumberOfMoves,int maxNumberOfEcoPoints) throws ModeExceptions {
+        if (!setMaxNumberOfEcoPoints(maxNumberOfEcoPoints)){
+            throw new ModeExceptions("max number of eco points must be greater than 0 !");
+        }
+        if(!setMaxNumberOfMoves(maxNumberOfMoves)){
+            throw new ModeExceptions("max number of moves must be greater than 0 !");
+        }
     }
 
     @Override
