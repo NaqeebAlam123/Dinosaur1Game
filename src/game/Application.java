@@ -5,6 +5,17 @@ import java.util.List;
 import java.util.Scanner;
 
 import edu.monash.fit2099.engine.*;
+import game.dinosaurs.functions.Drink;
+import game.dinosaurs.live.Brachiosaur;
+import game.dinosaurs.live.Stegosaur;
+import game.grounds.*;
+import game.player.Player;
+import game.player.exceptions.ModeExceptions;
+import game.player.game_modes.Challenge;
+import game.player.game_modes.GameMode;
+import game.player.game_modes.SandBox;
+import game.static_classes.Sky;
+import game.vending_machine.VendingMachine;
 
 /**
  * The main class for the Jurassic World game.
@@ -126,8 +137,10 @@ public class Application {
 		gameMap2.at(24,15).addActor(new Brachiosaur("brachiosaur","male"));
 		gameMap2.at(30,15).addActor(new Brachiosaur("brachiosaur","female")); */
 			gameMap2.at(24, 12).setGround(new VendingMachine());
+
 			gameMap.at(40, 0).setGround(new Portal(gameMap2.at(40,24),"To Second Area"));
 			gameMap2.at(40, 24).setGround(new Portal(gameMap.at(40,0),"Go back to First Area"));
+
 
 
 			world.run();
