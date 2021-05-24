@@ -23,6 +23,10 @@ import game.vending_machine.VendingMachine;
  */
 public class Application {
 
+	/**
+	 * The main method
+	 * @param args args
+	 */
 	public static void main(String[] args) {
 		boolean playAnother=true;
 		while(playAnother) {
