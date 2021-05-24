@@ -6,8 +6,22 @@ import game.dinosaurs.live.Dinosaur;
 
 import java.util.Random;
 
+/**
+ * @author Muhammad Naqeeb Alam
+ * @version 1.0.0
+ * @see DinosaurFunctionsClass
+ * @see Dinosaur
+ * @see game.dinosaurs.eggs.Egg
+ * @see DinosaurFunctions
+ * @see game.dinosaurs.live.Pterodactyls
+ * This class modifies Pterodactyls as it can only catch fish
+ */
 public class Catching extends DinosaurFunctionsClass {
-
+    /**
+     * allows catching of fish if the flying dinosaur is at ground of lake
+     * @param dinosaur Dinosaur instance
+     * @param location current location
+     */
     @Override
     public void catchFish(Dinosaur dinosaur, Location location) {
         Random r = new Random();
