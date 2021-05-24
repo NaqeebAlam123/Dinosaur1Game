@@ -77,12 +77,11 @@ public class Application {
 
 		Actor player = new Player("Player", '@', 100);
 		world.addPlayer(player, gameMap.at(40, 1));
-		Portal portal = new Portal();
-		Portal portalBack = new Portal();
-		portal.addAction(new MoveActorAction(gameMap2.at(40,24),"to next area"));
-		portalBack.addAction(new MoveActorAction(gameMap.at(40,0),"back to previous area"));
+
+
+
 		Drink drink=new Drink();
-		
+
 		// Place a pair of stegosaurs in the middle of the map
 		gameMap.at(30, 12).addActor(new Stegosaur("Stegosaur","male",drink));
 		gameMap.at(40, 12).addActor(new Stegosaur("Stegosaur","female",drink));
@@ -90,6 +89,11 @@ public class Application {
 		gameMap.at(20,16).addActor(new Brachiosaur("brachiosaur","female",drink));
 		gameMap.at(24,15).addActor(new Brachiosaur("brachiosaur","male",drink));
 		gameMap.at(30,15).addActor(new Brachiosaur("brachiosaur","female",drink));
+		//gameMap.at(35,16).addActor(new Allosaur("Allosaur", "male",drink));
+		//gameMap.at(35,14).addActor(new Allosaur("Allosaur", "male",drink));
+		gameMap.at(34,15).addActor(new Allosaur("Allosaur", "male",drink));
+		//gameMap.at(36,15).addActor(new Allosaur("Allosaur", "male",drink));
+		gameMap.at(35,15).addActor(new Pterodactyls("Pterodactyl","male",drink,new Catching()));
 		gameMap.at(24,12).setGround(new VendingMachine());
 /*
 		gameMap2.at(30, 12).addActor(new Stegosaur("Stegosaur","male"));
@@ -99,8 +103,8 @@ public class Application {
 		gameMap2.at(24,15).addActor(new Brachiosaur("brachiosaur","male"));
 		gameMap2.at(30,15).addActor(new Brachiosaur("brachiosaur","female")); */
 		gameMap2.at(24,12).setGround(new VendingMachine());
-		gameMap.at(40,0).addItem(portal);
-		gameMap2.at(40,24).addItem(portalBack);
+		gameMap2.at(40,24).setGround(new Portal(gameMap.at(40,0),"back to previous area"));
+		gameMap.at(40,0).setGround(new Portal(gameMap2.at(40,24),"to next area"));
 
 
 		world.run();

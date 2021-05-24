@@ -55,7 +55,7 @@ public class Egg  extends Item {
 
         if (hasCapability(eggOf.Stegosaur)&& eggAge==10){
             if (currentLocation.getActor()==null) {
-                creatingBabyDinosaur(player, 100, currentLocation, new Stegosaur("Stegosaur", gender));
+                creatingBabyDinosaur(player, 100, currentLocation, new Stegosaur("Stegosaur", gender, new Drink()));
             }
             else{
                 eggAge=eggAge-1;
@@ -64,7 +64,7 @@ public class Egg  extends Item {
         }
         else if (hasCapability(eggOf.Brachiosaur)&& eggAge==30){
             if (currentLocation.getActor()==null) {
-                creatingBabyDinosaur(player, 1000, currentLocation, new Brachiosaur("Brachiosaur", gender));
+                creatingBabyDinosaur(player, 1000, currentLocation, new Brachiosaur("Brachiosaur", gender, new Drink()));
             }
             else{
                 eggAge=eggAge-1;
@@ -72,7 +72,14 @@ public class Egg  extends Item {
         }
         else if (hasCapability(eggOf.Allosaur)&& eggAge==50){
             if (currentLocation.getActor()==null) {
-                creatingBabyDinosaur(player, 1000, currentLocation, new Allosaur("Brachiosaur", gender));
+                creatingBabyDinosaur(player, 1000, currentLocation, new Allosaur("Allosaur", gender, new Drink()));
+            }
+            else {
+                eggAge=eggAge-1;
+            }
+        }else if (hasCapability(eggOf.Pterodactyls)&& eggAge==10){
+            if (currentLocation.getActor()==null) {
+                creatingBabyDinosaur(player, 100, currentLocation, new Pterodactyls("Pterodactyls", gender, new Drink(), new Catching()));
             }
             else {
                 eggAge=eggAge-1;

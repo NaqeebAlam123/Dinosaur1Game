@@ -245,6 +245,10 @@ public abstract class Dinosaur extends Actor {
         unconsciousTurns=unconsciousTurns+1;
     }
 
+    public String getName(){
+        return this.name;
+    }
+
     /**
      * Constructor for dinosaur that initialises its name, display character on map, initial food values and its gender
      * @param name
