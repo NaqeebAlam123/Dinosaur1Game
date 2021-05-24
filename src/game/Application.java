@@ -141,7 +141,7 @@ public class Application {
 		gameMap2.at(24,15).addActor(new Brachiosaur("brachiosaur","male"));
 		gameMap2.at(30,15).addActor(new Brachiosaur("brachiosaur","female")); */
 			gameMap2.at(24, 12).setGround(new VendingMachine());
-
+			//setup a portal in both map
 			gameMap.at(40, 0).setGround(new Portal(gameMap2.at(40,24),"To Second Area"));
 			gameMap2.at(40, 24).setGround(new Portal(gameMap.at(40,0),"Go back to First Area"));
 

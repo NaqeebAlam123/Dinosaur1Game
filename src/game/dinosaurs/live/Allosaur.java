@@ -70,6 +70,7 @@ public class Allosaur extends Dinosaur {
             Egg egg = null;
 
             List<Item> item = thisLocation.getItems();
+            //loop through the list of items on the ground
             for (Item value : item) {
                 if (value instanceof Corpse) {
                     corpse = (Corpse) value;
@@ -103,7 +104,7 @@ public class Allosaur extends Dinosaur {
                         this.setHitPoints(this.getMaxHitPoints());
                     }
                 }
-            }else if(eggExist){
+            }else if(eggExist){ // if it is an egg
                 System.out.println("Allosaur at (" + x + ", " + y + ") found an egg and ate it. Heal 10hp");
                 this.heal(10);
                 thisLocation.removeItem(egg);

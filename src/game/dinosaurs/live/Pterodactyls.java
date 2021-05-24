@@ -76,10 +76,10 @@ public class Pterodactyls extends Dinosaur {
                 System.out.println("Pterodactyl at("+ thisLocation.x() + "," + thisLocation.y() + ") took a rest on the tree.");
                 setFlyDuration(30);
             }
-            if(!hasCapability(FlyBehaviour.FLY)) {
+            if(!hasCapability(FlyBehaviour.FLY)) { // if pterodactyl is walking, sip from side of lake
                 dinosaurFunctionsClass.drink(this, thisLocation);
             }
-            else {
+            else { // else fly on top to catch fish and sip water
                 dinosaurFunctionsClass2.catchFish(this, thisLocation);
             }
 
@@ -109,11 +109,11 @@ public class Pterodactyls extends Dinosaur {
                             Location destination = exit.getDestination();
                             if (destination.containsAnActor()) {
                                 Actor actor = destination.getActor();
-                                if (actor instanceof Allosaur && ((Allosaur) actor).getGender().contentEquals("male") && thisLocation.getGround() instanceof Tree) {
+                                if (actor instanceof Pterodactyls && ((Pterodactyls) actor).getGender().contentEquals("male") && thisLocation.getGround() instanceof Tree) {
                                     System.out.println("Pterodactyl at (" + x + ", " + y + ") is pregnant.");
                                     setPregnantCount(0);
                                     addCapability(BreedingState.Pregnant);
-                                    ((Allosaur) actor).setBreedingState(false); //back to false after success breeding
+                                    ((Pterodactyls) actor).setBreedingState(false); //back to false after success breeding
                                     break;
                                 }
 
@@ -141,6 +141,8 @@ public class Pterodactyls extends Dinosaur {
             }
             setUnconsciousTurns(0);
             if(getPregnantCount() >= 15) {
+                //near to lay an egg, find tree
+                System.out.println("Pterodactyl at (" + x + ", " + y + ") is moving towards a tree to lay egg.");
                 wander = new Following(false, false, false, false, false,true).getAction(this, map);
 
 

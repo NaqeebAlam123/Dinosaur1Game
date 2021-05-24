@@ -32,7 +32,7 @@ public class Portal extends Ground{
     public Actions allowableActions(Actor actor, Location location, String direction) {
         Actions actions= super.allowableActions(actor, location, direction);
         if (actor instanceof Player){
-            actions.add(new MoveActorAction(location2,direction2));
+            actions.add(new MoveActorAction(location2,direction2)); //sends the player to the location
         }
         return actions;
     }
