@@ -5,6 +5,9 @@ import edu.monash.fit2099.engine.*;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * This is a class for Pterodactyl, A flying Dinosaur that catches fish from lake
+ */
 public class Pterodactyls extends Dinosaur{
     private DinosaurFunctionsClass dinosaurFunctionsClass;
     private DinosaurFunctionsClass dinosaurFunctionsClass2;
