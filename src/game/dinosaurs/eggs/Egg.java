@@ -1,8 +1,15 @@
-package game;
+package game.dinosaurs.eggs;
 
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Location;
+import game.dinosaurs.functions.Catching;
+import game.dinosaurs.functions.Drink;
+import game.dinosaurs.live.*;
+import game.dinosaurs.status.AgeGroup;
+import game.dinosaurs.status.eggOf;
+import game.player.Player;
+import game.static_classes.Util;
 
 import java.util.Random;
 
@@ -14,7 +21,7 @@ import java.util.Random;
  * @see Location
  * @see Player
  * @see Dinosaur
- * @see Util
+ * @see game.static_classes.Util
  */
 public class Egg  extends Item {
     /**
@@ -44,7 +51,7 @@ public class Egg  extends Item {
         String gender;
         eggAge=eggAge+1;
         GameMap map=currentLocation.map();
-        Player player=Util.findPlayer(map);
+        Player player= Util.findPlayer(map);
         Random r= new Random();
         if (r.nextBoolean()){
             gender="male";

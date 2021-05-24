@@ -1,6 +1,7 @@
 package game.grounds;
 
 import edu.monash.fit2099.engine.*;
+import game.player.Player;
 
 public class Portal extends Ground{
     private Location location2;

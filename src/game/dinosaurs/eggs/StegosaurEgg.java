@@ -15,7 +15,7 @@ import game.dinosaurs.live.Stegosaur;
  * @see Stegosaur
  * @version 1.0.0
  */
-public class StegosaurEgg extends Egg{
+public class StegosaurEgg extends Egg {
     /**
      * a final value which is the points require to purchase StegosaurEgg in Vending Machine
      */
