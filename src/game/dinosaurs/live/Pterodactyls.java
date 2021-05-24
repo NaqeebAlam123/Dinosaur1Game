@@ -73,6 +73,7 @@ public class Pterodactyls extends Dinosaur {
 
 
             if (thisLocation.getGround() instanceof Tree){
+                System.out.println("Pterodactyl at("+ thisLocation.x() + "," + thisLocation.y() + ") took a rest on the tree.");
                 setFlyDuration(30);
             }
             if(!hasCapability(FlyBehaviour.FLY)) {
@@ -81,11 +82,6 @@ public class Pterodactyls extends Dinosaur {
             else {
                 dinosaurFunctionsClass2.catchFish(this, thisLocation);
             }
-
-            /*if (drink) {
-                addWaterLevel(30);
-                lake.decNumberOfSips();
-            }*/
 
             if (corpseExist) { //if it is a corpse
 
@@ -102,6 +98,7 @@ public class Pterodactyls extends Dinosaur {
             }
 
             if (getFlyDuration() <= 0){
+                System.out.println("Pterodactyl at("+ thisLocation.x() + "," + thisLocation.y() + ")is tired and switched to walking.");
                 removeCapability(FlyBehaviour.FLY);
             }
             }

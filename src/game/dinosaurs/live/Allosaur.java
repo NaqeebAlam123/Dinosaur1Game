@@ -157,8 +157,8 @@ public class Allosaur extends Dinosaur {
                                 } else {
                                     this.setHitPoints(this.getMaxHitPoints());
                                 }
-                                ActorLocations actorLocations = new ActorLocations();
-                                actorLocations.remove(stegosaur); //remove dead stegosaur
+
+                                map.removeActor(stegosaur); //remove dead stegosaur
                             }
                         }
                     }
@@ -172,10 +172,9 @@ public class Allosaur extends Dinosaur {
                 if (destination.getActor() instanceof Pterodactyls) {
                     Pterodactyls pterodactyls = (Pterodactyls) destination.getActor();
                     if (!pterodactyls.hasCapability(FlyBehaviour.FLY)) { // If pterodactyl is not flying
-                        System.out.println("Allosaur  at ( " + thisLocation.x() + ", " + thisLocation.y() + ") attacks Pterodactyl.");
+                        System.out.println("Allosaur  at ( " + thisLocation.x() + ", " + thisLocation.y() + ") found a walking Pterodactyl and ate it.");
                         this.setHitPoints(getMaxHitPoints());
-                        ActorLocations actorLocations = new ActorLocations();
-                        actorLocations.remove(pterodactyls);
+                        map.removeActor(pterodactyls);
                     }
                 }
             }

@@ -1,17 +1,8 @@
-package game.dinosaurs.eggs;
+package game;
 
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Location;
-import game.player.Player;
-import game.static_classes.Util;
-import game.dinosaurs.functions.Drink;
-import game.dinosaurs.live.Allosaur;
-import game.dinosaurs.live.Brachiosaur;
-import game.dinosaurs.live.Dinosaur;
-import game.dinosaurs.live.Stegosaur;
-import game.dinosaurs.status.AgeGroup;
-import game.dinosaurs.status.eggOf;
 
 import java.util.Random;
 
@@ -55,7 +46,6 @@ public class Egg  extends Item {
         GameMap map=currentLocation.map();
         Player player=Util.findPlayer(map);
         Random r= new Random();
-        Drink drink=new Drink();
         if (r.nextBoolean()){
             gender="male";
         }
@@ -63,18 +53,18 @@ public class Egg  extends Item {
             gender="female";
         }
 
-        if (hasCapability(eggOf.Stegosaur)&& eggAge==30){
+        if (hasCapability(eggOf.Stegosaur)&& eggAge==10){
             if (currentLocation.getActor()==null) {
-                creatingBabyDinosaur(player, 100, currentLocation, new Stegosaur("Stegosaur", gender,drink));
+                creatingBabyDinosaur(player, 100, currentLocation, new Stegosaur("Stegosaur", gender, new Drink()));
             }
             else{
                 eggAge=eggAge-1;
             }
 
         }
-        else if (hasCapability(eggOf.Brachiosaur)&& eggAge==10){
+        else if (hasCapability(eggOf.Brachiosaur)&& eggAge==30){
             if (currentLocation.getActor()==null) {
-                creatingBabyDinosaur(player, 1000, currentLocation, new Brachiosaur("Brachiosaur", gender,drink));
+                creatingBabyDinosaur(player, 1000, currentLocation, new Brachiosaur("Brachiosaur", gender, new Drink()));
             }
             else{
                 eggAge=eggAge-1;
@@ -82,7 +72,14 @@ public class Egg  extends Item {
         }
         else if (hasCapability(eggOf.Allosaur)&& eggAge==50){
             if (currentLocation.getActor()==null) {
-                creatingBabyDinosaur(player, 1000, currentLocation, new Allosaur("Allosaur", gender,drink));
+                creatingBabyDinosaur(player, 1000, currentLocation, new Allosaur("Allosaur", gender, new Drink()));
+            }
+            else {
+                eggAge=eggAge-1;
+            }
+        }else if (hasCapability(eggOf.Pterodactyls)&& eggAge==10){
+            if (currentLocation.getActor()==null) {
+                creatingBabyDinosaur(player, 100, currentLocation, new Pterodactyls("Pterodactyls", gender, new Drink(), new Catching()));
             }
             else {
                 eggAge=eggAge-1;

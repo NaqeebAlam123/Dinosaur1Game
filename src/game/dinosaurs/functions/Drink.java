@@ -28,9 +28,11 @@ public class Drink extends DinosaurFunctionsClass{
                 destination.setGround(lake);
                 if(dinosaur instanceof Brachiosaur){
                     dinosaur.setWaterLevel(dinosaur.getWaterLevel()+80);
+                    System.out.println(dinosaur.getName() + " at (" + destination.x() + "," + destination.y() + ") takes a sip from the lake.");
                 }
                 else{
                     dinosaur.setWaterLevel(dinosaur.getWaterLevel()+30);
+                    System.out.println(dinosaur.getName() + " at (" + destination.x() + "," + destination.y() + ") takes a sip from the lake.");
                 }
 
             }

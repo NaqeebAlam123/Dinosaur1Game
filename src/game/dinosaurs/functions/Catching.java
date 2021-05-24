@@ -19,12 +19,13 @@ public class Catching extends DinosaurFunctionsClass {
             if (lake.getNumberOfFish() > 0) {
                 if (lake.getNumberOfFish() < 3) {
                     catchFish = r.nextInt(lake.getNumberOfFish()) + 1;
-
                 } else {
                     catchFish = r.nextInt(3);
                 }
                 heal = 5 * catchFish;
                 dinosaur.setHitPoints(dinosaur.getHitPoints()+heal);
+                System.out.println(dinosaur.getName() + " at (" + location.x() + "," + location.y() + ") " +
+                        "caught " +  catchFish + "fishes and takes a sip from the lake.");
 
             }
         }

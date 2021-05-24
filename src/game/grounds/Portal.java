@@ -1,14 +1,22 @@
 package game.grounds;
 
-import edu.monash.fit2099.engine.Action;
-import edu.monash.fit2099.engine.Ground;
-import edu.monash.fit2099.engine.Item;
+import edu.monash.fit2099.engine.*;
 
-public class Portal extends Item {
-    public Portal(){
-        super("Portal",'=',false);
+public class Portal extends Ground{
+    private Location location2;
+    private String direction2;
+    public Portal(Location location, String direction){
+        super('=');
+        this.location2 = location;
+        this.direction2 = direction;
     }
-    public void addAction(Action action) {
-        this.allowableActions.add(action);
+    @Override
+    public Actions allowableActions(Actor actor, Location location, String direction) {
+        Actions actions= super.allowableActions(actor, location, direction);
+        if (actor instanceof Player){
+            actions.add(new MoveActorAction(location2,direction2));
+        }
+        return actions;
     }
 }
+
