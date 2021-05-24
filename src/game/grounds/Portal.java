@@ -9,6 +9,12 @@ import game.player.Player;
 public class Portal extends Ground{
     private Location location2;
     private String direction2;
+
+    /**
+     * Constructor for portal
+     * @param location Location of the next area
+     * @param direction Description of the direction
+     */
     public Portal(Location location, String direction){
         super('=');
         this.location2 = location;

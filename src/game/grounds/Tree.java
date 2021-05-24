@@ -29,7 +29,7 @@ public class Tree extends FoodSource {
 
 	/**
 	 * Returns the number of hanging Fruits
-	 * @return
+	 * @return number of hanging fruits
 	 */
 	public int getHangingFruits() {
 		return hangingFruits;
@@ -39,6 +39,10 @@ public class Tree extends FoodSource {
 	 * number of hanging fruits
 	 */
 	private int hangingFruits;
+
+	/**
+	 * constructor for tree
+	 */
 	public Tree() {
 		super('+');
 	}

@@ -17,6 +17,9 @@ import java.util.Random;
  */
 public class Bush extends FoodSource {
 
+    /**
+     * Constructor for bush that grows on ground
+     */
     public Bush() {
         super('b');
     }
