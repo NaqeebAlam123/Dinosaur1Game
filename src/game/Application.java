@@ -5,6 +5,17 @@ import java.util.List;
 import java.util.Scanner;
 
 import edu.monash.fit2099.engine.*;
+import game.dinosaurs.functions.Drink;
+import game.dinosaurs.live.Brachiosaur;
+import game.dinosaurs.live.Stegosaur;
+import game.grounds.*;
+import game.player.Player;
+import game.player.exceptions.ModeExceptions;
+import game.player.game_modes.Challenge;
+import game.player.game_modes.GameMode;
+import game.player.game_modes.SandBox;
+import game.static_classes.Sky;
+import game.vending_machine.VendingMachine;
 
 /**
  * The main class for the Jurassic World game.
