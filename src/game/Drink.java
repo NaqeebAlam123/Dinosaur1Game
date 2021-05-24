@@ -3,8 +3,18 @@ package game;
 import edu.monash.fit2099.engine.Exit;
 import edu.monash.fit2099.engine.Location;
 
+/**
+ * @author Muhammad Naqeeb Alam
+ * @version 1.0.0
+ * @see DinosaurFunctionsClass
+ * @see Application
+ */
 public class Drink extends DinosaurFunctionsClass{
-
+    /**
+     *
+     * @param dinosaur
+     * @param location
+     */
     public void drink(Dinosaur dinosaur,Location location){
         for(Exit exit:location.getExits()){
             Location destination=exit.getDestination();

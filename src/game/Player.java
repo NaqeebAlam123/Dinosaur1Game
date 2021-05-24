@@ -18,7 +18,7 @@ public class Player extends Actor {
 	/**
 	 * Stores eco points of players
 	 */
-
+    private GameMode gameMode;
 	private int ecoPoints=0;
 
 	/**
@@ -28,9 +28,10 @@ public class Player extends Actor {
 	 * @param displayChar Character to represent the player in the UI
 	 * @param hitPoints   Player's starting number of hitpoints
 	 */
-	public Player(String name, char displayChar, int hitPoints) {
+	public Player(String name, char displayChar, int hitPoints,GameMode gameMode) {
 
 		super(name, displayChar, hitPoints);
+		this.gameMode=gameMode;
 	}
 
 	/**
@@ -70,6 +71,8 @@ public class Player extends Actor {
 		Actions inActions=new Actions();
 		Location thisLocation=map.locationOf(this);
 		FoodSource foodSource=null;
+		Sky.process();
+
 		if(thisLocation.getGround() instanceof Tree){
 			foodSource=(Tree)thisLocation.getGround();
 
@@ -88,7 +91,11 @@ public class Player extends Actor {
 
 			}
         }
-
+		if(gameMode.checkGameFinished(this)){
+			System.out.println(gameMode.getMessage());
+			map.removeActor(this);
+		}
+		actions.add(new Quit());
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
 		return menu.showMenu(this, actions, display);
