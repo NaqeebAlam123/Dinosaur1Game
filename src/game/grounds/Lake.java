@@ -33,7 +33,7 @@ public class Lake extends Ground {
 
     /**
      * set number of sips in the lake
-     * @param numberOfSips
+     * @param numberOfSips number of sips
      */
     public void setNumberOfSips(int numberOfSips) {
         this.numberOfSips = Math.min(numberOfSips,25);
@@ -41,7 +41,7 @@ public class Lake extends Ground {
 
     /**
      * get the number of sips in the lake
-     * @return
+     * @return number of sips
      */
     public int getNumberOfSips(){
         return  numberOfSips;
@@ -49,7 +49,7 @@ public class Lake extends Ground {
 
     /**
      * sets number of fishes to the lake
-     * @param numberOfFish
+     * @param numberOfFish number of fish
      */
     public void setNumberOfFish(int numberOfFish){
         this.numberOfFish = Math.min(numberOfFish,25);
@@ -57,7 +57,7 @@ public class Lake extends Ground {
 
     /**
      * gets number of fishes in the lake
-     * @return
+     * @return number of fish
      */
     public int getNumberOfFish(){
         return numberOfFish;

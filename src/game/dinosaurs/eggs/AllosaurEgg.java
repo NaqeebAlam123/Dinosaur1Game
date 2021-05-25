@@ -20,6 +20,13 @@ public class AllosaurEgg extends Egg{
          * a final value which is the points require to purchase StegosaurEgg in Vending Machine
          */
         public final int ecoPoints=1000;
+
+    /**
+     * Constructor For Allosaur Egg
+     * @param name Name of the egg
+     * @param displayChar display character of the egg
+     * @param portable portability of the egg
+     */
         public AllosaurEgg(String name, char displayChar, boolean portable) {
             super(name, displayChar, portable);
         }

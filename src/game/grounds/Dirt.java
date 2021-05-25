@@ -19,6 +19,9 @@ import java.util.Random;
  */
 public class Dirt extends Ground {
 
+	/**
+	 * Constructor for dirt
+	 */
 	public Dirt() {
 		super('.');
 	}

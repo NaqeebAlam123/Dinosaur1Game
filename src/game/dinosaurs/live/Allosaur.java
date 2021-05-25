@@ -55,8 +55,6 @@ public class Allosaur extends Dinosaur {
     @Override
     public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
         Random r=new Random();
-        boolean drink = false;
-        Lake lake = null;
         Location thisLocation=map.locationOf(this);
         int x = thisLocation.x();
         int y = thisLocation.y();
@@ -64,6 +62,7 @@ public class Allosaur extends Dinosaur {
         Action wander = null;
 
         if(isConscious()){
+            dinosaurFunctionsClass.drink(this,thisLocation);
             setUnconsciousTurns(0);
             boolean corpseExist = false;
             boolean eggExist = false;
@@ -71,6 +70,7 @@ public class Allosaur extends Dinosaur {
             Egg egg = null;
 
             List<Item> item = thisLocation.getItems();
+            //loop through the list of items on the ground
             for (Item value : item) {
                 if (value instanceof Corpse) {
                     corpse = (Corpse) value;
@@ -81,20 +81,6 @@ public class Allosaur extends Dinosaur {
                 }
             }
 
-            for (Exit exit : thisLocation.getExits()) {
-                Location destination = exit.getDestination();
-                if (destination.getGround() instanceof Lake) {
-                    lake = (Lake) destination.getGround();
-                    drink = true;
-                    break;
-                }
-            }
-
-
-            /*if(drink){
-                addWaterLevel(30);
-                lake.decNumberOfSips();
-            }*/
 
             if(corpseExist){ //if it is a corpse
                 if (corpse instanceof AllosaurCorpse || corpse instanceof StegosaurCorpse){
@@ -118,7 +104,7 @@ public class Allosaur extends Dinosaur {
                         this.setHitPoints(this.getMaxHitPoints());
                     }
                 }
-            }else if(eggExist){
+            }else if(eggExist){ // if it is an egg
                 System.out.println("Allosaur at (" + x + ", " + y + ") found an egg and ate it. Heal 10hp");
                 this.heal(10);
                 thisLocation.removeItem(egg);

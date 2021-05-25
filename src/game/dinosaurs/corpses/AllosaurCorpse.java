@@ -11,10 +11,20 @@ import game.dinosaurs.live.Allosaur;
  */
 public class AllosaurCorpse extends Corpse{
     private int duration = 20;
+
+    /**
+     * constructor for Allosaur Corpse
+     * @param name
+     * @param displayChar
+     */
     public AllosaurCorpse(String name, char displayChar){
         super(name,displayChar,false);
     }
 
+    /**
+     * Set decay duration of the corpse
+     * @param duration
+     */
     public void setCorpseDuration(int duration ){
         this.duration = duration;
     }
@@ -40,6 +50,10 @@ public class AllosaurCorpse extends Corpse{
     }
 
 
+    /**
+     * decrease the duration of the corpse
+     * @return a boolean variable on if the duration is decreased
+     */
     public boolean decreaseDuration(){
         boolean valid = false;
         if (duration > 0){
