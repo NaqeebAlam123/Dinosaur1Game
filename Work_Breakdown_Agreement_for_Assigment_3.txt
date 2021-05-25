@@ -1,0 +1,29 @@
+﻿Work Breakdown Agreement
+
+
+By Muhammad Naqeeb Alam
+
+
+1.Added Uml(part of it)
+2.Added Player Sequence diagram
+3.Created Classes Sky,Drink,Catching,GameMode,Challenge,Sandbox,Quit,DinosaurFunctionsClass,DinosaurFunctions,Lake and implemented their functionalities
+4.Added Java docs and comments for above implemented classes
+5-Added Design rationale for some functionalities(Lakes,water and rain,Thirsty Dinosaur, a more sophisticated game driver)
+6-Given Potential Flaws and fix as recommendation for game engine
+By Cheng Zi Ming
+  
+1.Added Uml(part of it)
+2.Added Pterodactyl Sequence diagram
+3.Created Classes Pterodactyl,Pterodactyl Corpse,PterodactylEgg,FlyBehaviour,Portal and implemented their functionalities
+4.Added Java docs and comments for above implemented classes
+5-Added Design rationale for some functionalities(Pterodactyl,Second Map)
+6-Given new functionalities to make the game more interactive and interesting as recommendation for game engine
+
+
+
+
+
+
+
+
+I Muhammad Naqeeb Alam hereby accept this work breakdown aggrement
