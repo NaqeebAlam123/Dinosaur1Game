@@ -109,7 +109,7 @@ public class Application {
 							gameMode = new Challenge(maxMoves, maxEcoPoints);
 							correct = true;
 						} catch (ModeExceptions e) {
-							e.getMessage();
+							System.out.println(e.getMessage());
 							System.out.println("Re-Enter");
 						}
 					}
@@ -140,14 +140,15 @@ public class Application {
 
 			world.run();
 			System.out.println("Do you want to play again(Y/N)");
-			String choice2=scanner.nextLine();
-			switch (choice2){
-				case "Y":
-					playAnother=true;
-				case "N":
-					playAnother=false;
-
+			String choice2=String.valueOf(scanner.next());
+			if (choice2.contentEquals("Y")){
+				playAnother=true;
 			}
+			else if(choice2.contentEquals("N")){
+				playAnother=false;
+			}
+
+
 		}
 	}
 

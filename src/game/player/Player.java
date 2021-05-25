@@ -77,7 +77,6 @@ public class Player extends Actor {
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
 		// Handle multi-turn Actions
-		Actions inActions=new Actions();
 		Location thisLocation=map.locationOf(this);
 		FoodSource foodSource=null;
 		Sky.process();
@@ -103,8 +102,13 @@ public class Player extends Actor {
 		if(gameMode.checkGameFinished(this)){
 			System.out.println(gameMode.getMessage());
 			map.removeActor(this);
+			actions.clear();
+			actions.add(new DoNothingAction());
 		}
-		actions.add(new Quit());
+		else {
+			actions.add(new Quit());
+
+		}
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
 		return menu.showMenu(this, actions, display);

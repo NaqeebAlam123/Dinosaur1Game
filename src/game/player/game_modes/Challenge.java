@@ -37,7 +37,7 @@ public class Challenge implements GameMode {
 
     @Override
     public boolean checkGameFinished(Player player) {
-        if(player.getEcoPoints()==maxNumberOfEcoPoints){
+        if(player.getEcoPoints()>=maxNumberOfEcoPoints){
             if(currentNumberOfMoves<=maxNumberOfMoves){
                 message="Congratulations You have won";
             }

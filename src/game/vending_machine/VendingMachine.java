@@ -73,6 +73,7 @@ public class VendingMachine extends Ground {
         if (actor instanceof Player){
             Player player=(Player) actor;
             int points=player.getEcoPoints();
+            System.out.println("Eco Points : "+points);
             if (points> fruit.ecoPoints){
                 actions.add(new PickupFromVendingMachine(fruit));
             }
