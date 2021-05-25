@@ -92,6 +92,7 @@ public class Application {
 			GameMap gameMap2 = new GameMap(groundFactory, map2);
 			world.addGameMap(gameMap2);
 			Sky.setRaining(false);
+			Sky.setRainTurns(1);
 			Application.printMenu();
 			Scanner scanner = new Scanner(System.in);
 
