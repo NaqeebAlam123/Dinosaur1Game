@@ -10,6 +10,7 @@ import game.grounds.Lake;
 import java.util.Random;
 
 /**
+ * This class is used to keep a check if sky will rain for specific turn or not
  * @author Muhammad Naqeeb Alam
  * @version 1.0.0
  * @see Lake
@@ -18,7 +19,6 @@ import java.util.Random;
  * @see Allosaur
  * @see Pterodactyls
  * @see Player
- * This class is used to keep a check if sky will rain for specific turn or not
  */
 public class Sky {
     /**
@@ -67,18 +67,19 @@ public class Sky {
      */
     public static void process(){
         Random r=new Random();
-        if (Sky.getRainTurns()==10){
-            if(r.nextInt(100)+1>80){
+        if (Sky.getRainTurns()==10){ //when 10 turns are reached
+            if(r.nextInt(100)+1>80){ //for 10% chance,set the raining attribute to true
                 Sky.setRaining(true);
             }
-            else{
+            else{ //else set the raining attribute to false
                 Sky.setRaining(false);
             }
-
+            //initialises the number of turns to 1 allowing to look again at the 10th turn
             Sky.setRainTurns(1);
         }
         else{
             Sky.setRaining(false);
+            //increment number of turns passed
             Sky.setRainTurns(Sky.getRainTurns()+1);
         }
 

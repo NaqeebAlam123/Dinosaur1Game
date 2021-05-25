@@ -9,6 +9,7 @@ import game.dinosaurs.status.FlyBehaviour;
 import java.util.Random;
 
 /**
+ * This class allows lake to be set on the ground
  * @author Muhammad Naqeeb Alam
  * @version 1.0.0
  * @see Ground
@@ -77,11 +78,11 @@ public class Lake extends Ground {
     @Override
     public void tick(Location location) {
         Random r = new Random();
-        double rainFall = Math.floor((Math.random() * (1.5))+0.1);
-        if (Sky.isRaining()){
+        double rainFall = Math.floor((Math.random() * (1.5))+0.1);//produces a random value between 0.1 and 0.6
+        if (Sky.isRaining()){ // if it is raining, then use the rainfall local variable to calculate the number of sips to be added
             setNumberOfSips(getNumberOfSips()+(int)(rainFall*20));
         }
-        if (r.nextInt(100)+1<=60){
+        if (r.nextInt(100)+1<=60){//for a 60% chance,add an extra fish to the lake
             setNumberOfFish(getNumberOfFish()+1);
         }
     }
